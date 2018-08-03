@@ -24,6 +24,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
 
     compile "io.reactivex.rxjava2:rxjava:2.1.0" // 必要rxjava2依赖
@@ -32,7 +34,7 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0' // 必要依赖，和Rxjava结合必须用到，下面会提到
     compile 'com.squareup.retrofit2:converter-gson:2.3.0' // 必要依赖，解析json字符所用
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1' //非必要依赖， log依赖，如果需要打印OkHttpLog需要添加
-
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
 
     compile('com.squareup.retrofit2:converter-simplexml:2.1.0') {
         exclude group: 'xpp3', module: 'xpp3'

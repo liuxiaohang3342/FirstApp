@@ -1,16 +1,15 @@
 package com.example.lxh.firstapp.base.core.fragment;
 
-import android.app.Fragment;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.Toolbar;
@@ -29,6 +28,14 @@ public abstract class BaseFragment extends Fragment {
     private AnimationDrawable mLoadingDrawable;
     private Toolbar mToolbar;
 
+    private Bundle mBundle;
+
+    public BaseFragment() {
+    }
+
+    public BaseFragment(Bundle bundle) {
+        mBundle = bundle;
+    }
 
     @Nullable
     @Override
@@ -121,5 +128,4 @@ public abstract class BaseFragment extends Fragment {
             view.setVisibility(visibility);
         }
     }
-
 }

@@ -1,105 +1,49 @@
 package com.example.lxh.firstapp;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-import com.example.lxh.firstapp.base.core.http.HttpMethod;
-import com.example.lxh.firstapp.base.core.http.ResponseTransformer;
-import com.example.lxh.firstapp.base.core.http.SchedulerProvider;
-import com.example.lxh.firstapp.base.network.Api;
-import com.example.lxh.firstapp.bean.User;
+import com.example.lxh.firstapp.base.core.activity.BaseActivity;
+import com.example.lxh.firstapp.home.AlbumFragment;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+//
+//    @Override
+//    protected int getLayoutId() {
+//        return R.layout.activity_main;
+//    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_main);
-        HttpMethod.getInstance().createService(Api.class).getUser("0")
-                .compose(ResponseTransformer.handleResult())
-                .compose(SchedulerProvider.getInstance().applySchedulers())
-                .subscribe(new Observer<User>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull User o) {
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-        String[] items = {
-                "1", "2", "3", "4", "5"
-        };
-
-        Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
-
-            }
-        }).flatMap(new Function<String, ObservableSource<String>>() {
-            @Override
-            public ObservableSource<String> apply(@NonNull String integer) throws Exception {
-                return Observable.fromArray(integer);
-            }
-        }).map(new Function<String, Integer>() {
-
-            @Override
-            public Integer apply(@NonNull String s) throws Exception {
-                return Integer.valueOf(s);
-            }
-        }).compose(new ObservableTransformer<Integer, Integer>() {
-            @Override
-            public ObservableSource<Integer> apply(@NonNull Observable<Integer> upstream) {
-                return null;
-            }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull Integer integer) {
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        findViewById(R.id.tv_album).setOnClickListener(this);
+        findViewById(R.id.tv_songlist).setOnClickListener(this);
+        findViewById(R.id.tv_mv).setOnClickListener(this);
+        findViewById(R.id.tv_mine).setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_album:
+//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                ft.replace(R.id.fl_content, new AlbumFragment());
+//                ft.commitAllowingStateLoss();
+//                replaceFragment(R.id.fl_content, AlbumFragment.class, null);
+                break;
+            case R.id.tv_songlist:
+                break;
+            case R.id.tv_mv:
+                break;
+            case R.id.tv_mine:
+                break;
+
+        }
+    }
 }

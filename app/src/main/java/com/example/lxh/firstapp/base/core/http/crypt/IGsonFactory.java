@@ -38,7 +38,8 @@ public class IGsonFactory extends Converter.Factory {
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type,
                                                             Annotation[] annotations, Retrofit retrofit) {
-        return new IResponseBodyConverter(); // 响应
+        TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
+        return new IResponseBodyConverter(gson, adapter); // 响应
     }
 
     @Override

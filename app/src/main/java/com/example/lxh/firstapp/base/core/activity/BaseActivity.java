@@ -12,8 +12,9 @@ import android.widget.ImageView;
 
 import com.example.lxh.firstapp.R;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by lxh on 2018/7/26.
@@ -28,7 +29,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private AnimationDrawable mLoadingDrawable;
     private Toolbar mToolbar;
 
-    private CompositeSubscription mSubscription;
+    private CompositeDisposable mDisposable;
+
+    private ActionBar mActionBar;
 
 
     @Override
@@ -39,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setToolBar();
         FrameLayout mContainer = getView(R.id.fl_container);
         mContentView = getLayoutInflater().inflate(getLayoutId(), mContainer, false);
-        mContainer.addView(mContentView, 0);
+        mContainer.addView(mContentView);
     }
 
     private void initView() {
@@ -59,12 +62,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void setToolBar() {
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
             //去除默认Title显示
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
+            mActionBar.setDisplayShowTitleEnabled(false);
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+            mActionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void setTitle(String title) {
         mToolbar.setTitle(title);
+    }
+
+    public void setActionBarCustomView(int rid) {
+        mActionBar.setCustomView(rid);
     }
 
 
@@ -134,18 +141,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 所有rx订阅后，需要调用此方法，用于在detachView时取消订阅
      */
-    protected void addSubscription(Subscription subscribe) {
-        if (mSubscription == null)
-            mSubscription = new CompositeSubscription();
-        mSubscription.add(subscribe);
+    protected void addSubscription(Disposable disposable) {
+        if (mDisposable == null)
+            mDisposable = new CompositeDisposable();
+        mDisposable.add(disposable);
     }
 
     /**
      * 取消本页面所有订阅
      */
     protected void onUnsubscribe() {
-        if (mSubscription != null && mSubscription.hasSubscriptions()) {
-            mSubscription.unsubscribe();
+        if (mDisposable != null && mDisposable.isDisposed()) {
+            mDisposable.dispose();
         }
     }
 

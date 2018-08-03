@@ -8,14 +8,14 @@ import java.lang.ref.WeakReference;
 
 public abstract class BasePresenter<T extends IView> implements IPresenter {
 
-    private WeakReference<IView> mReference;
+    private WeakReference<T> mReference;
 
     public BasePresenter(T t) {
-        mReference = new WeakReference<IView>(t);
+        mReference = new WeakReference<>(t);
     }
 
     @SuppressWarnings("unchecked")
-    public IView getView() {
+    public T getView() {
         if (mReference == null
                 || mReference.get() == null) {
             return null;

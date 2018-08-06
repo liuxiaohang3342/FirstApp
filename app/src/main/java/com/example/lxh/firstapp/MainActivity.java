@@ -1,27 +1,24 @@
 package com.example.lxh.firstapp;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.lxh.firstapp.base.core.activity.BaseActivity;
+import com.example.lxh.firstapp.base.core.activity.BaseFragmentActivity;
 import com.example.lxh.firstapp.home.AlbumFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-//
-//    @Override
-//    protected int getLayoutId() {
-//        return R.layout.activity_main;
-//    }
+public class MainActivity extends BaseFragmentActivity implements View.OnClickListener {
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         findViewById(R.id.tv_album).setOnClickListener(this);
         findViewById(R.id.tv_songlist).setOnClickListener(this);
         findViewById(R.id.tv_mv).setOnClickListener(this);
@@ -32,10 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_album:
-//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.replace(R.id.fl_content, new AlbumFragment());
-//                ft.commitAllowingStateLoss();
-//                replaceFragment(R.id.fl_content, AlbumFragment.class, null);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fl_content, new AlbumFragment());
+                ft.commitAllowingStateLoss();
+                replaceFragment(R.id.fl_content, AlbumFragment.class, null);
                 break;
             case R.id.tv_songlist:
                 break;

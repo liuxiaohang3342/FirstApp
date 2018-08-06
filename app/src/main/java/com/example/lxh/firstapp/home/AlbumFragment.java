@@ -2,6 +2,7 @@ package com.example.lxh.firstapp.home;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -34,7 +35,9 @@ public class AlbumFragment extends BaseMVPFragment<AlbumPresenter, IAlbumView> i
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_album_list);
+        mRefreshLayout.setEnabled(false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_recycle_album_list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         showLoadingView();
         getPresenter().requestData();
     }

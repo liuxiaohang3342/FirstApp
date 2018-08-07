@@ -7,4 +7,6 @@
     <color name="colorProgress">#ffffbb33</color>
 
     <color name="colorTheme">#ffce3d3a</color>
+
+    <color name="color_white">#ffffff</color>
 </resources>

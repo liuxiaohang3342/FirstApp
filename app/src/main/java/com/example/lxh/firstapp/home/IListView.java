@@ -9,6 +9,6 @@ import java.util.List;
  * Created by lxh on 2018/8/3.
  */
 
-public interface IAlbumView extends IView {
-    void onSuccess(List<Album> albumList);
+public interface IListView<T> extends IView {
+    void onSuccess(List<T> itemList);
 }

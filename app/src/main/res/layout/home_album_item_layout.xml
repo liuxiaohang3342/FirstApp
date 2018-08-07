@@ -42,10 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="3dp"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textSize="8dp"
+            android:textSize="10dp"
             tools:text="数字专辑售卖中"/>
         <TextView
             android:id="@+id/digital_desc"
@@ -53,8 +54,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
+            android:ellipsize="end"
             android:maxLines="1"
             android:textSize="10dp"
+            android:layout_marginTop="3dp"
             tools:text="数字专辑售卖中"/>
     </LinearLayout>
 

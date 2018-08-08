@@ -2,6 +2,7 @@ package com.example.lxh.firstapp.base.core.http;
 
 import android.text.TextUtils;
 
+import com.example.lxh.firstapp.base.core.http.log.LoggerInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

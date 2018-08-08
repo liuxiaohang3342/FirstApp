@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.base.core.http;
+package com.example.lxh.firstapp.base.core.http.exception;
 
 /**
  * Created by lxh on 2018/7/26.

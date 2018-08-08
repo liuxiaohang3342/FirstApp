@@ -1,8 +1,8 @@
 package com.example.lxh.firstapp.home.today;
 
 import com.example.lxh.firstapp.api.GankApi;
+import com.example.lxh.firstapp.api.HttpMethod;
 import com.example.lxh.firstapp.base.core.http.RetrofitClient;
-import com.example.lxh.firstapp.bean.AndroidInfo;
 import com.example.lxh.firstapp.bean.SourceInfo;
 import com.example.lxh.firstapp.bean.response.HistoryResponse;
 import com.example.lxh.firstapp.bean.response.TodayResponse;
@@ -15,10 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lxh on 2018/8/8.
@@ -28,9 +26,7 @@ public class TodayModel implements ITodayModel<SourceInfo> {
 
     @Override
     public void request(final IDataLoadListener<SourceInfo> loadListener) {
-        RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).today()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        HttpMethod.packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).today())
                 .subscribe(new Consumer<TodayResponse>() {
                     @Override
                     public void accept(@NonNull TodayResponse todayResponse) throws Exception {
@@ -58,9 +54,8 @@ public class TodayModel implements ITodayModel<SourceInfo> {
     public void request(Date date, final IDataLoadListener<SourceInfo> loadListener) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).reqestDataByDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        HttpMethod.packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class)
+                .reqestDataByDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)))
                 .subscribe(new Consumer<TodayResponse>() {
                     @Override
                     public void accept(@NonNull TodayResponse todayResponse) throws Exception {
@@ -82,6 +77,7 @@ public class TodayModel implements ITodayModel<SourceInfo> {
                         loadListener.onError();
                     }
                 });
+
     }
 
     private void addList(List<SourceInfo> total, List<? extends SourceInfo> subList) {
@@ -92,9 +88,7 @@ public class TodayModel implements ITodayModel<SourceInfo> {
 
     @Override
     public void dayHistory(final IHistoryListener listener) {
-        RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).dayHistory()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        HttpMethod.packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).dayHistory())
                 .subscribe(new Consumer<HistoryResponse>() {
                     @Override
                     public void accept(@NonNull HistoryResponse historyResponse) throws Exception {

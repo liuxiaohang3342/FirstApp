@@ -13,6 +13,7 @@ import retrofit2.http.Query;
 
 public interface SearchApi {
 
+
     String SEARCH_URL = "http://search.kuwo.cn/";
 
     @GET("r.s?client=kt&ver=kwplayer_ar_9.0.2.0&ft=album&vipver=1&cluster=0&encoding=utf8&rformat=json&mobi=1&strategy=2012&presell=1")
@@ -20,5 +21,9 @@ public interface SearchApi {
 
     @GET("r.s?client=kt&ver=kwplayer_ar_9.0.2.0&ft=playlist&vipver=1&encoding=utf8&rformat=json&mobi=1&from=mobile")
     Observable<SongListResponse> searchSongList(@Query("all") String key, @Query("pn") int pn, @Query("rn") int rn, @Query("uid") String uid);
+
+    @GET("r.s?client=kt&ver=kwplayer_ar_9.0.2.0&ft=playlist&vipver=1&encoding=utf8&rformat=json&mobi=1&from=mobile")
+    Observable searchMV(@Query("all") String key, @Query("pn") int pn, @Query("rn") int rn, @Query("uid") String uid);
+
 
 }

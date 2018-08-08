@@ -9,4 +9,14 @@
     <color name="colorTheme">#ffce3d3a</color>
 
     <color name="color_white">#ffffff</color>
+    <color name="color_black">#000000</color>
+
+
+    <color name="skin_title_important_color">#222222</color>
+    <color name="skin_title_less_important_color">#555555</color>
+    <color name="skin_title_color">#000000</color>
+    <color name="skin_tip_color">#888888</color>
+    <color name="skin_disable_color">#cacaca</color>
+    <color name="skin_splite_color">#ebebeb</color>
+    <color name="skin_item_bg">#ffffff</color>
 </resources>

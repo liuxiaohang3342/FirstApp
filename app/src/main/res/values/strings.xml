@@ -3,4 +3,6 @@
     <string name="error_tip">加载失败,点击重试</string>
     <string name="empty_tip">暂无数据</string>
     <string name="loading_tip">正在加载中请稍后</string>
+
+    <string name="request_error">请求失败</string>
 </resources>

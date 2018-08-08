@@ -37,6 +37,11 @@ public class AlbumPresenter extends BasePresenter<IListView> implements IDataLoa
         if (getView() == null) {
             return;
         }
-        getView().onSuccess(albumList);
+        getView().onRequestSuccess(albumList);
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

@@ -10,8 +10,7 @@ import android.view.View;
 
 import com.example.lxh.firstapp.base.core.activity.BaseActivity;
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
-import com.example.lxh.firstapp.home.album.AlbumFragment;
-import com.example.lxh.firstapp.home.songlist.SongListFragment;
+import com.example.lxh.firstapp.home.today.TodayFragment;
 
 import java.util.ArrayList;
 
@@ -35,9 +34,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_songlist).setOnClickListener(this);
         findViewById(R.id.tv_mv).setOnClickListener(this);
         findViewById(R.id.tv_mine).setOnClickListener(this);
-        mFragments.add(new AlbumFragment());
-        mFragments.add(new SongListFragment());
+        mFragments.add(new TodayFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));
+        mViewPager.setOffscreenPageLimit(4);
+        setTitle("干货");
     }
 
 
@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mViewPager.setCurrentItem(1);
                 break;
             case R.id.tv_mv:
+                mViewPager.setCurrentItem(2);
                 break;
             case R.id.tv_mine:
                 break;

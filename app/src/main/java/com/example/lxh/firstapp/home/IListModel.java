@@ -1,7 +1,5 @@
 package com.example.lxh.firstapp.home;
 
-import com.example.lxh.firstapp.home.IDataLoadListener;
-
 /**
  * Created by lxh on 2018/8/3.
  */

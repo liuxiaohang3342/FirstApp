@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="专辑"
+            android:text="今日更新"
             android:textColor="@color/colorAccent"/>
         <TextView
             android:id="@+id/tv_songlist"
@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="歌单"
+            android:text="分类"
             android:textColor="@color/colorAccent"/>
         <TextView
             android:id="@+id/tv_mv"
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="视频"
+            android:text="往期"
             android:textColor="@color/colorAccent"/>
         <TextView
             android:id="@+id/tv_mine"
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="我的"
+            android:text="福利"
             android:textColor="@color/colorAccent"/>
 
     </LinearLayout>

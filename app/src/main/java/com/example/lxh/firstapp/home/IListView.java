@@ -1,7 +1,6 @@
 package com.example.lxh.firstapp.home;
 
 import com.example.lxh.firstapp.base.core.mvp.IView;
-import com.example.lxh.firstapp.bean.Album;
 
 import java.util.List;
 
@@ -10,5 +9,7 @@ import java.util.List;
  */
 
 public interface IListView<T> extends IView {
-    void onSuccess(List<T> itemList);
+
+    void onRequestSuccess(List<T> itemList);
+
 }

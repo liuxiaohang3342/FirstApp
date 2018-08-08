@@ -46,7 +46,7 @@ public class RetrofitClient {
                 //添加请求头
 //                .addInterceptor(new BaseInterceptor())
                 //添加日志打印拦截器
-//                .addInterceptor(new LoggerInterceptor("===", true))
+                .addInterceptor(new LoggerInterceptor())
                 .build();
         Gson gson = new GsonBuilder().setLenient().create();
         mRetrofit = new Retrofit.Builder()

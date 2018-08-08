@@ -38,6 +38,11 @@ public class SongListPresenter extends BasePresenter<IListView> implements IData
         if (getView() == null) {
             return;
         }
-        getView().onSuccess(itemList);
+        getView().onRequestSuccess(itemList);
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

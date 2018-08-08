@@ -45,7 +45,7 @@ public class SongListFragment extends BaseMVPFragment<SongListPresenter, IListVi
     }
 
     @Override
-    public void onSuccess(List<SongList> itemList) {
+    public void onRequestSuccess(List<SongList> itemList) {
         showContentView();
         mRecyclerView.setAdapter(new SongListAdapter(R.layout.home_songlist_item_layout, itemList));
     }

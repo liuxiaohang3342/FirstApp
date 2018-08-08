@@ -44,7 +44,7 @@ public class AlbumFragment extends BaseMVPFragment<AlbumPresenter, IListView> im
     }
 
     @Override
-    public void onSuccess(List<Album> albumList) {
+    public void onRequestSuccess(List<Album> albumList) {
         showContentView();
         mRecyclerView.setAdapter(new AlbumAdapter(R.layout.home_album_item_layout, albumList));
     }

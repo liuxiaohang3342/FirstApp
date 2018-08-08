@@ -7,5 +7,7 @@ import java.util.List;
  */
 
 public interface IDataLoadListener<T> {
-    void onSuccess(List<T> albumList);
+    void onSuccess(List<T> list);
+
+    void onError();
 }

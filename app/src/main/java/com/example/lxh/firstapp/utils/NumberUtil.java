@@ -1,5 +1,9 @@
 package com.example.lxh.firstapp.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by lxh on 2018/8/7.
  */
@@ -38,5 +42,6 @@ public class NumberUtil {
         int y = (int) ((count - x * divider) / Math.pow(10, index - 1));
         return x + "." + y;
     }
+
 
 }

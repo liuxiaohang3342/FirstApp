@@ -1,8 +1,7 @@
 package com.example.lxh.firstapp.home.today;
 
-import com.example.lxh.firstapp.api.GankApi;
 import com.example.lxh.firstapp.api.HttpMethod;
-import com.example.lxh.firstapp.base.core.http.RetrofitClient;
+import com.example.lxh.firstapp.api.IListener;
 import com.example.lxh.firstapp.bean.SourceInfo;
 import com.example.lxh.firstapp.bean.response.HistoryResponse;
 import com.example.lxh.firstapp.bean.response.TodayResponse;
@@ -15,9 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-
 /**
  * Created by lxh on 2018/8/8.
  */
@@ -26,58 +22,55 @@ public class TodayModel implements ITodayModel<SourceInfo> {
 
     @Override
     public void request(final IDataLoadListener<SourceInfo> loadListener) {
-        HttpMethod.packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).today())
-                .subscribe(new Consumer<TodayResponse>() {
-                    @Override
-                    public void accept(@NonNull TodayResponse todayResponse) throws Exception {
-                        List<SourceInfo> sourceInfos = new ArrayList<>();
-                        TodayResults todayResults = todayResponse.getResults();
-                        if (todayResults != null) {
-                            sourceInfos.addAll(todayResults.getAndroid());
-                            sourceInfos.addAll(todayResults.getApp());
-                            sourceInfos.addAll(todayResults.getiOS());
-                            sourceInfos.addAll(todayResults.get前端());
-                            sourceInfos.addAll(todayResults.get福利());
-                            sourceInfos.addAll(todayResults.get休息视频());
-                        }
-                        loadListener.onSuccess(sourceInfos);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        loadListener.onError();
-                    }
-                });
+        HttpMethod.day(new IListener<TodayResponse>() {
+            @Override
+            public void onSuccess(TodayResponse data) {
+                List<SourceInfo> sourceInfos = new ArrayList<>();
+                TodayResults todayResults = data.getResults();
+                if (todayResults != null) {
+                    sourceInfos.addAll(todayResults.getAndroid());
+                    sourceInfos.addAll(todayResults.getApp());
+                    sourceInfos.addAll(todayResults.getiOS());
+                    sourceInfos.addAll(todayResults.get前端());
+                    sourceInfos.addAll(todayResults.get福利());
+                    sourceInfos.addAll(todayResults.get休息视频());
+                }
+                loadListener.onSuccess(sourceInfos);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                loadListener.onError();
+            }
+        });
     }
 
     @Override
     public void request(Date date, final IDataLoadListener<SourceInfo> loadListener) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        HttpMethod.packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class)
-                .reqestDataByDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)))
-                .subscribe(new Consumer<TodayResponse>() {
-                    @Override
-                    public void accept(@NonNull TodayResponse todayResponse) throws Exception {
-                        List<SourceInfo> sourceInfos = new ArrayList<>();
-                        TodayResults todayResults = todayResponse.getResults();
-                        if (todayResults != null) {
-                            addList(sourceInfos, todayResults.getAndroid());
-                            addList(sourceInfos, todayResults.getApp());
-                            addList(sourceInfos, todayResults.getiOS());
-                            addList(sourceInfos, todayResults.get前端());
-                            addList(sourceInfos, todayResults.get福利());
-                            addList(sourceInfos, todayResults.get休息视频());
-                        }
-                        loadListener.onSuccess(sourceInfos);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        loadListener.onError();
-                    }
-                });
 
+        HttpMethod.reqestDataByDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), new IListener<TodayResponse>() {
+            @Override
+            public void onSuccess(TodayResponse data) {
+                List<SourceInfo> sourceInfos = new ArrayList<>();
+                TodayResults todayResults = data.getResults();
+                if (todayResults != null) {
+                    addList(sourceInfos, todayResults.getAndroid());
+                    addList(sourceInfos, todayResults.getApp());
+                    addList(sourceInfos, todayResults.getiOS());
+                    addList(sourceInfos, todayResults.get前端());
+                    addList(sourceInfos, todayResults.get福利());
+                    addList(sourceInfos, todayResults.get休息视频());
+                }
+                loadListener.onSuccess(sourceInfos);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                loadListener.onError();
+            }
+        });
     }
 
     private void addList(List<SourceInfo> total, List<? extends SourceInfo> subList) {
@@ -88,23 +81,22 @@ public class TodayModel implements ITodayModel<SourceInfo> {
 
     @Override
     public void dayHistory(final IHistoryListener listener) {
-        HttpMethod.packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).dayHistory())
-                .subscribe(new Consumer<HistoryResponse>() {
-                    @Override
-                    public void accept(@NonNull HistoryResponse historyResponse) throws Exception {
-                        String[] data = historyResponse.getResults();
-                        List<String> historys = null;
-                        if (data != null) {
-                            historys = Arrays.asList(data);
-                        }
-                        listener.onHistoryBack(historys);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        listener.onHistoryError();
-                    }
-                });
+        HttpMethod.dayHistory(new IListener<HistoryResponse>() {
+            @Override
+            public void onSuccess(HistoryResponse data) {
+                String[] results = data.getResults();
+                List<String> historys = null;
+                if (data != null) {
+                    historys = Arrays.asList(results);
+                }
+                listener.onHistoryBack(historys);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                listener.onHistoryError();
+            }
+        });
     }
 
 

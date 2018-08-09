@@ -1,6 +1,7 @@
 package com.example.lxh.firstapp.base.core.imageloader.transformation;
 
 import android.graphics.Bitmap;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.request.target.ImageViewTarget;
@@ -20,8 +21,9 @@ public class ScaleTransformation extends ImageViewTarget<Bitmap> {
 
     @Override
     protected void setResource(Bitmap resource) {
-        int width = resource.getWidth();
-        int height = resource.getHeight();
-
+        ViewGroup.LayoutParams params = mImageView.getLayoutParams();
+        params.height = params.width * 2;
+        mImageView.setLayoutParams(params);
+        mImageView.setImageBitmap(resource);
     }
 }

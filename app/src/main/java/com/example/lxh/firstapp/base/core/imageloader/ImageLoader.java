@@ -6,6 +6,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
+import com.example.lxh.firstapp.base.core.imageloader.transformation.ScaleTransformation;
+import com.example.lxh.firstapp.base.core.imageloader.transformation.TransformationFactory;
 
 /**
  * Created by lxh on 2018/8/6.
@@ -35,10 +37,17 @@ public class ImageLoader {
         Glide.with(fragment).load(url).into(view);
     }
 
+    public void load(Context context, ImageView view, String url, int type) {
+        Glide.with(context).load(url)
+                .asBitmap()
+                .into(TransformationFactory.createTransformation(type, view));
+    }
+
 
     public void load(Context context, ImageView view, String url, ImageConfig config) {
         Glide.with(context)
                 .load(url)
+                .crossFade(600)
                 .placeholder(config.mLoadingRes)
                 .error(config.mFailureDrawable)
                 .into(view);
@@ -51,8 +60,6 @@ public class ImageLoader {
                 .error(config.mFailureDrawable)
                 .into(view);
     }
-
-
 
 
 }

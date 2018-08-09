@@ -76,9 +76,6 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
 
     @Override
     public void onNoMore() {
-        if (mTodayAdapter.getData() == null || mTodayAdapter.getData().size() == 0) {
-            showEmptyView();
-        }
         mTodayAdapter.loadMoreEnd();
     }
 
@@ -86,7 +83,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     public void onError() {
         mTodayAdapter.loadMoreFail();
         if (mTodayAdapter.getData() == null || mTodayAdapter.getData().size() == 0) {
-            showEmptyView();
+            showErrorView();
             return;
         }
         Toast.makeText(getContext(), getResources().getString(R.string.request_error), Toast.LENGTH_SHORT).show();

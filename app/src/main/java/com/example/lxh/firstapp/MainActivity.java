@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.lxh.firstapp.base.core.activity.BaseActivity;
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
+import com.example.lxh.firstapp.home.girl.GirlFragment;
 import com.example.lxh.firstapp.home.today.TodayFragment;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_mv).setOnClickListener(this);
         findViewById(R.id.tv_mine).setOnClickListener(this);
         mFragments.add(new TodayFragment());
+        mFragments.add(new GirlFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));
         mViewPager.setOffscreenPageLimit(4);
         setTitle("干货");

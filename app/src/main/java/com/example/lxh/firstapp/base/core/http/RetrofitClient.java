@@ -48,6 +48,7 @@ public class RetrofitClient {
 //                .addInterceptor(new BaseInterceptor())
                 //添加日志打印拦截器
                 .addInterceptor(new LoggerInterceptor())
+                .connectTimeout(20, TimeUnit.SECONDS)
                 .build();
         Gson gson = new GsonBuilder().setLenient().create();
         mRetrofit = new Retrofit.Builder()

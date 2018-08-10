@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FirstApp</string>
+    <string name="app_name">干货</string>
     <string name="error_tip">加载失败,点击重试</string>
     <string name="empty_tip">暂无数据</string>
     <string name="loading_tip">正在加载中请稍后</string>

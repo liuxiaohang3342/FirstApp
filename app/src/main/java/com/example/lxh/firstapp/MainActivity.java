@@ -6,30 +6,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.lxh.firstapp.base.core.activity.BaseActivity;
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
 import com.example.lxh.firstapp.home.girl.GirlFragment;
 import com.example.lxh.firstapp.home.today.TodayFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewPager mViewPager;
 
     private ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
-    }
-
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.vp_content);
         findViewById(R.id.tv_album).setOnClickListener(this);
         findViewById(R.id.tv_songlist).setOnClickListener(this);
@@ -39,7 +34,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mFragments.add(new GirlFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));
         mViewPager.setOffscreenPageLimit(4);
-        setTitle("干货");
     }
 
 

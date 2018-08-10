@@ -8,15 +8,42 @@
     android:orientation="vertical"
     tools:context="com.example.lxh.firstapp.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/colorTheme">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/titlebar_menu"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="干货"
+            android:textColor="@color/color_white"
+            android:textSize="18dp"/>
+
+    </android.support.v7.widget.Toolbar>
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/skin_splite_color"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="47dp">
+
         <TextView
             android:id="@+id/tv_album"
             android:layout_width="0dp"
@@ -24,7 +51,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="今日更新"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorTheme"/>
         <TextView
             android:id="@+id/tv_songlist"
             android:layout_width="0dp"
@@ -32,7 +59,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="分类"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorTheme"/>
         <TextView
             android:id="@+id/tv_mv"
             android:layout_width="0dp"
@@ -40,7 +67,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="搜索"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorTheme"/>
         <TextView
             android:id="@+id/tv_mine"
             android:layout_width="0dp"
@@ -48,8 +75,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="福利"
-            android:textColor="@color/colorAccent"/>
-
+            android:textColor="@color/colorTheme"/>
     </LinearLayout>
 
 </LinearLayout>

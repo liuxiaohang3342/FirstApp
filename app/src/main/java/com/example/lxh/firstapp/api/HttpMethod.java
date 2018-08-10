@@ -1,8 +1,9 @@
 package com.example.lxh.firstapp.api;
 
 import com.example.lxh.firstapp.base.core.http.RetrofitClient;
+import com.example.lxh.firstapp.bean.CategoryInfo;
 import com.example.lxh.firstapp.bean.GirlInfo;
-import com.example.lxh.firstapp.bean.SourceInfo;
+import com.example.lxh.firstapp.bean.SubCategoryInfo;
 import com.example.lxh.firstapp.bean.response.DataResponse;
 import com.example.lxh.firstapp.bean.response.HistoryResponse;
 import com.example.lxh.firstapp.bean.response.TodayResponse;
@@ -89,5 +90,32 @@ public class HttpMethod {
                 });
     }
 
+    public static void getGategories(final IListener<DataResponse<CategoryInfo>> listener) {
+        packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).getCategories()).subscribe(new Consumer<DataResponse<CategoryInfo>>() {
+            @Override
+            public void accept(@NonNull DataResponse<CategoryInfo> categoryInfoDataResponse) throws Exception {
+                listener.onSuccess(categoryInfoDataResponse);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(@NonNull Throwable throwable) throws Exception {
+                listener.onError(throwable);
+            }
+        });
+    }
+
+    public static void getSubGategories(String category, final IListener<DataResponse<SubCategoryInfo>> listener) {
+        packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).getSubCategories(category)).subscribe(new Consumer<DataResponse<SubCategoryInfo>>() {
+            @Override
+            public void accept(@NonNull DataResponse<SubCategoryInfo> categoryInfoDataResponse) throws Exception {
+                listener.onSuccess(categoryInfoDataResponse);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(@NonNull Throwable throwable) throws Exception {
+                listener.onError(throwable);
+            }
+        });
+    }
 
 }

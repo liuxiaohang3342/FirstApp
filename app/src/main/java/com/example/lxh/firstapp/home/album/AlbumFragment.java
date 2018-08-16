@@ -48,4 +48,11 @@ public class AlbumFragment extends BaseMVPFragment<AlbumPresenter, IListView> im
         showContentView();
         mRecyclerView.setAdapter(new AlbumAdapter(R.layout.home_album_item_layout, albumList));
     }
+
+    @Override
+    public void onErrorViewClick() {
+        super.onErrorViewClick();
+        showLoadingView();
+        getPresenter().requestData();
+    }
 }

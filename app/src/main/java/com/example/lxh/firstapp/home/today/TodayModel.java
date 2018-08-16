@@ -28,12 +28,12 @@ public class TodayModel implements ITodayModel<SourceInfo> {
                 List<SourceInfo> sourceInfos = new ArrayList<>();
                 TodayResults todayResults = data.getResults();
                 if (todayResults != null) {
-                    sourceInfos.addAll(todayResults.getAndroid());
-                    sourceInfos.addAll(todayResults.getApp());
-                    sourceInfos.addAll(todayResults.getiOS());
-                    sourceInfos.addAll(todayResults.get前端());
-                    sourceInfos.addAll(todayResults.get福利());
-                    sourceInfos.addAll(todayResults.get休息视频());
+                    addList(sourceInfos, todayResults.getAndroid());
+                    addList(sourceInfos, todayResults.getApp());
+                    addList(sourceInfos, todayResults.getiOS());
+                    addList(sourceInfos, todayResults.get前端());
+                    addList(sourceInfos, todayResults.get福利());
+                    addList(sourceInfos, todayResults.get休息视频());
                 }
                 loadListener.onSuccess(sourceInfos);
             }

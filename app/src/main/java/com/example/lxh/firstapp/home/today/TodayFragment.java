@@ -1,5 +1,6 @@
 package com.example.lxh.firstapp.home.today;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
 import com.example.lxh.firstapp.bean.SourceInfo;
+import com.example.lxh.firstapp.web.WebActivity;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
  * Created by lxh on 2018/8/8.
  */
 
-public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo> {
+public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener {
 
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -56,6 +58,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
                 getPresenter().loadMore();
             }
         }, mRecyclerView);
+        mTodayAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mTodayAdapter);
         showLoadingView();
         getPresenter().requestToday();
@@ -87,5 +90,20 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
             return;
         }
         Toast.makeText(getContext(), getResources().getString(R.string.request_error), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        SourceInfo info = mTodayAdapter.getItem(position);
+        Intent intent = new Intent(getContext(), WebActivity.class);
+        intent.putExtra(Constant.KEY_URL, info.getUrl());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onErrorViewClick() {
+        super.onErrorViewClick();
+        showLoadingView();
+        getPresenter().requestToday();
     }
 }

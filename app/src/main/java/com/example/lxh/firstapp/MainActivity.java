@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
+import com.example.lxh.firstapp.home.album.AlbumFragment;
+import com.example.lxh.firstapp.home.category.CategoryFragment;
 import com.example.lxh.firstapp.home.girl.GirlFragment;
 import com.example.lxh.firstapp.home.today.TodayFragment;
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_mv).setOnClickListener(this);
         findViewById(R.id.tv_mine).setOnClickListener(this);
         mFragments.add(new TodayFragment());
+        mFragments.add(new CategoryFragment());
+        mFragments.add(new AlbumFragment());
         mFragments.add(new GirlFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));
         mViewPager.setOffscreenPageLimit(4);
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mViewPager.setCurrentItem(2);
                 break;
             case R.id.tv_mine:
+                mViewPager.setCurrentItem(3);
                 break;
 
         }

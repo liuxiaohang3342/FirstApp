@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
  * Created by lxh on 2018/7/26.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     private View mErrorView;
     private View mEmptyView;
@@ -46,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void initView() {
         mErrorView = getView(R.id.ll_error);
+        mErrorView.setOnClickListener(this);
         mEmptyView = getView(R.id.ll_empty);
         mLoadingView = getView(R.id.ll_loading);
         mContentView = getView(R.id.fl_container);
@@ -160,4 +161,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         onUnsubscribe();
     }
+
+    @Override
+    public void onClick(View v) {
+        requestData();
+    }
+
+    public void requestData() {
+    }
+
 }

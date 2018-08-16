@@ -1,23 +1,30 @@
 package com.example.lxh.firstapp.home.girl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseIntArray;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
 import com.example.lxh.firstapp.bean.GirlInfo;
+import com.example.lxh.firstapp.img.ImageActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.lxh.firstapp.home.girl.Constant.KEY_POSITION;
+import static com.example.lxh.firstapp.home.girl.Constant.KEY_URL_LIST;
 
 /**
  * Created by lxh on 2018/8/9.
  */
 
-public class GirlFragment extends BaseMVPFragment<GirlPresenter, IGrilView> implements IGrilView {
+public class GirlFragment extends BaseMVPFragment<GirlPresenter, IGrilView> implements IGrilView, BaseQuickAdapter.OnItemClickListener {
 
 
     private SwipeRefreshLayout mRefreshLayout;
@@ -55,6 +62,7 @@ public class GirlFragment extends BaseMVPFragment<GirlPresenter, IGrilView> impl
                 getPresenter().loadMore();
             }
         }, mRecyclerView);
+        mGirlAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mGirlAdapter);
         showLoadingView();
         getPresenter().requestData();
@@ -90,5 +98,25 @@ public class GirlFragment extends BaseMVPFragment<GirlPresenter, IGrilView> impl
             return;
         }
         mGirlAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void onErrorViewClick() {
+        super.onErrorViewClick();
+        showLoadingView();
+        getPresenter().requestData();
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ArrayList<String> list = new ArrayList<>();
+        List<GirlInfo> girlInfos = mGirlAdapter.getData();
+        for (GirlInfo info : girlInfos) {
+            list.add(info.getUrl());
+        }
+        Intent intent = new Intent(getContext(), ImageActivity.class);
+        intent.putExtra(KEY_POSITION, position);
+        intent.putExtra(KEY_URL_LIST, list);
+        startActivity(intent);
     }
 }

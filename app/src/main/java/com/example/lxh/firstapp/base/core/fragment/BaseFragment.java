@@ -18,7 +18,7 @@ import com.example.lxh.firstapp.base.core.Toolbar;
  * Created by lxh on 2018/7/26.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements View.OnClickListener {
 
     private View mErrorView;
     private View mEmptyView;
@@ -62,6 +62,7 @@ public abstract class BaseFragment extends Fragment {
     private void initView() {
         mEmptyView = getView(R.id.ll_empty);
         mErrorView = getView(R.id.ll_error);
+        mErrorView.setOnClickListener(this);
         mLoadingView = getView(R.id.ll_loading);
         ImageView img = getView(R.id.img_loading);
         mLoadingDrawable = (AnimationDrawable) img.getDrawable();
@@ -128,4 +129,14 @@ public abstract class BaseFragment extends Fragment {
             view.setVisibility(visibility);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        onErrorViewClick();
+    }
+
+    public void onErrorViewClick() {
+    }
+
+
 }

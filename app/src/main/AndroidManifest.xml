@@ -18,6 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="com.example.lxh.firstapp.web.WebActivity"/>
+
+        <activity android:name="com.example.lxh.firstapp.img.ImageActivity"
+                  android:theme="@style/TranslucentFullScreenTheme"/>
     </application>
 
 </manifest>

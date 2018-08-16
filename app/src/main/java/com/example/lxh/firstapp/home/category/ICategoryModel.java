@@ -6,6 +6,4 @@ package com.example.lxh.firstapp.home.category;
 
 public interface ICategoryModel {
     void requestCategories(ICategoryDataListener listener);
-
-    void requestSubCategories(String category, ICategoryDataListener listener);
 }

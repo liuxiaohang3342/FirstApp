@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.home.category.sub;
+package com.example.lxh.firstapp.category.sub;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;

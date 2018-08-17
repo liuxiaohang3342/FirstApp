@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.home.category.sub;
+package com.example.lxh.firstapp.category.sub;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;

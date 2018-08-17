@@ -53,24 +53,24 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="今日更新"
+            android:text="推荐"
             android:textColor="@drawable/home_button_bg"/>
         <RadioButton
             android:id="@+id/tv_songlist"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:button="@null"
-            android:text="分类"
+            android:gravity="center"
+            android:text="图书"
             android:textColor="@drawable/home_button_bg"/>
         <RadioButton
             android:id="@+id/tv_mv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:button="@null"
+            android:gravity="center"
             android:text="搜索"
             android:textColor="@drawable/home_button_bg"/>
         <RadioButton
@@ -78,8 +78,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:button="@null"
+            android:gravity="center"
             android:text="福利"
             android:textColor="@drawable/home_button_bg"/>
     </RadioGroup>

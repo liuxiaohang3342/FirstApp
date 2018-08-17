@@ -11,8 +11,8 @@ import android.widget.RadioGroup;
 
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
 import com.example.lxh.firstapp.home.album.AlbumFragment;
-import com.example.lxh.firstapp.home.category.CategoryFragment;
 import com.example.lxh.firstapp.home.girl.GirlFragment;
+import com.example.lxh.firstapp.home.songlist.SongListFragment;
 import com.example.lxh.firstapp.home.today.TodayFragment;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mRadioGroup = (RadioGroup) findViewById(R.id.rg_home_button);
         mRadioGroup.setOnCheckedChangeListener(this);
         mFragments.add(new TodayFragment());
-        mFragments.add(new CategoryFragment());
+        mFragments.add(new SongListFragment());
         mFragments.add(new AlbumFragment());
         mFragments.add(new GirlFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));

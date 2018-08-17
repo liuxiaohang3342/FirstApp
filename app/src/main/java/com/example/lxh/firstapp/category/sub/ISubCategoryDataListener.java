@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.home.category.sub;
+package com.example.lxh.firstapp.category.sub;
 
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
 

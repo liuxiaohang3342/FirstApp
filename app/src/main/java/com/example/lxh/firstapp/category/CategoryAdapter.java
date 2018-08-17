@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.home.category;
+package com.example.lxh.firstapp.category;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

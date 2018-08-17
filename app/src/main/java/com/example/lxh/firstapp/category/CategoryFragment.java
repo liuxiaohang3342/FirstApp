@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.home.category;
+package com.example.lxh.firstapp.category;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import android.view.View;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
 import com.example.lxh.firstapp.bean.CategoryInfo;
-import com.example.lxh.firstapp.home.category.sub.SubCategoryFragment;
+import com.example.lxh.firstapp.category.sub.SubCategoryFragment;
 
 import java.util.ArrayList;
 import java.util.List;

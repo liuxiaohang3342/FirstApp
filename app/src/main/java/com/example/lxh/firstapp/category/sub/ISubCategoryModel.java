@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.home.category.sub;
+package com.example.lxh.firstapp.category.sub;
 
 /**
  * Created by lxh on 2018/8/13.

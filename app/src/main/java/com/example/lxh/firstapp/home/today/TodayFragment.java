@@ -21,7 +21,6 @@ import java.util.List;
  */
 
 public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener {
-
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private TodayAdapter mTodayAdapter;

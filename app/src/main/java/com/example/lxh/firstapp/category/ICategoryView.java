@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.home.category;
+package com.example.lxh.firstapp.category;
 
 import com.example.lxh.firstapp.base.core.mvp.IView;
 import com.example.lxh.firstapp.bean.CategoryInfo;

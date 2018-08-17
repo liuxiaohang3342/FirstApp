@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,6 +18,10 @@ import android.widget.ImageView;
  */
 
 public class MatrixView extends ImageView {
+
+    public interface OnFlingListener {
+        void onFling();
+    }
 
     private static final String TAG = MatrixView.class.getSimpleName();
 
@@ -59,6 +64,9 @@ public class MatrixView extends ImageView {
 
     private boolean mDraging = false;
 
+    private VelocityTracker mVelocityTracker;
+    private OnFlingListener mListener;
+
     public MatrixView(Context context) {
         this(context, null, -1);
     }
@@ -69,10 +77,15 @@ public class MatrixView extends ImageView {
 
     public MatrixView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mVelocityTracker = VelocityTracker.obtain();
         setOnTouchListener(new TouchListener());
         mGestureDetector = new GestureDetector(context, new GestureListener());
         setBackgroundColor(Color.BLACK);
         setScaleType(ScaleType.FIT_CENTER);
+    }
+
+    public void setListener(OnFlingListener listener) {
+        mListener = listener;
     }
 
     @Override
@@ -319,6 +332,7 @@ public class MatrixView extends ImageView {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            mVelocityTracker.addMovement(event);
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     mMode = DRAG;
@@ -337,7 +351,13 @@ public class MatrixView extends ImageView {
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
-                    resetMatrix();
+                    mVelocityTracker.computeCurrentVelocity(100);
+                    float dy = mVelocityTracker.getYVelocity();
+                    if (Math.abs(dy) > 50 && mListener != null) {
+                        mListener.onFling();
+                    } else {
+                        resetMatrix();
+                    }
                     mDraging = false;
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:

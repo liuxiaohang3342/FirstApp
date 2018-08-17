@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseIntArray;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -118,5 +117,6 @@ public class GirlFragment extends BaseMVPFragment<GirlPresenter, IGrilView> impl
         intent.putExtra(KEY_POSITION, position);
         intent.putExtra(KEY_URL_LIST, list);
         startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.scale_in, 0);
     }
 }

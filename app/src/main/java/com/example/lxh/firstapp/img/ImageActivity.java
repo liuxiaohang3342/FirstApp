@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.imageloader.ImageLoader;
@@ -40,6 +39,15 @@ public class ImageActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(mPosition);
     }
 
+    private MatrixView.OnFlingListener mTouchListener = new MatrixView.OnFlingListener() {
+
+        @Override
+        public void onFling() {
+            finish();
+            overridePendingTransition(0, R.anim.scale_out);
+        }
+    };
+
     class ImageAdapter extends PagerAdapter {
 
         @Override
@@ -55,7 +63,8 @@ public class ImageActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View view = LayoutInflater.from(ImageActivity.this).inflate(R.layout.image_item_layout, container, false);
-            ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
+            MatrixView imageView = (MatrixView) view.findViewById(R.id.iv_image);
+            imageView.setListener(mTouchListener);
             ImageLoader.getInstance().load(ImageActivity.this, imageView, mUrls.get(position));
             container.addView(view);
             return view;

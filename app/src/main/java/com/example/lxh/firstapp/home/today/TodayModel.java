@@ -5,7 +5,7 @@ import com.example.lxh.firstapp.api.IListener;
 import com.example.lxh.firstapp.bean.SourceInfo;
 import com.example.lxh.firstapp.bean.response.HistoryResponse;
 import com.example.lxh.firstapp.bean.response.TodayResponse;
-import com.example.lxh.firstapp.bean.response.TodayResults;
+import com.example.lxh.firstapp.bean.TodayResults;
 import com.example.lxh.firstapp.home.IDataLoadListener;
 
 import java.util.ArrayList;

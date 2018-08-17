@@ -1,6 +1,8 @@
 package com.example.lxh.firstapp.api;
 
 import com.example.lxh.firstapp.base.core.http.RetrofitClient;
+import com.example.lxh.firstapp.base.core.http.exception.ErrorResumeFunction;
+import com.example.lxh.firstapp.base.core.http.exception.ResponseFunction;
 import com.example.lxh.firstapp.bean.CategoryInfo;
 import com.example.lxh.firstapp.bean.GirlInfo;
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
@@ -22,8 +24,10 @@ public class HttpMethod {
 
     static <T> Observable<T> packObservable(Observable<T> observable) {
         return observable
+                //拦截服务器返回的错误
 //                .map(new ResponseFunction())
-//                .onErrorResumeNext(new ErrorResumeFunction<TodayResponse>())
+                //ErrorResumeFunction（）为拦截onError事件的拦截器
+                .onErrorResumeNext(new ErrorResumeFunction<T>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

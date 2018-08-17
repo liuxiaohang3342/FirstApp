@@ -1,5 +1,7 @@
 package com.example.lxh.firstapp.bean.response;
 
+import com.example.lxh.firstapp.bean.TodayResults;
+
 /**
  * Created by lxh on 2018/8/8.
  */

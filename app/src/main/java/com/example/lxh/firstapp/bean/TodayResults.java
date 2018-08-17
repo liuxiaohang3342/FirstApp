@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.bean.response;
+package com.example.lxh.firstapp.bean;
 
 import com.example.lxh.firstapp.bean.AndroidInfo;
 import com.example.lxh.firstapp.bean.AppInfo;

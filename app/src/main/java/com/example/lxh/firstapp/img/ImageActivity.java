@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.imageloader.ImageLoader;
 import com.example.lxh.firstapp.home.girl.Constant;
+import com.example.lxh.firstapp.view.MatrixView;
 
 import java.util.ArrayList;
 

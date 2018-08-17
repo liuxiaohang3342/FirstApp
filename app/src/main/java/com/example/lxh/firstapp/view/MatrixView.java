@@ -1,4 +1,4 @@
-package com.example.lxh.firstapp.img;
+package com.example.lxh.firstapp.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.widget.RadioGroup;
 
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
 import com.example.lxh.firstapp.home.album.AlbumFragment;
@@ -17,10 +17,10 @@ import com.example.lxh.firstapp.home.today.TodayFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     private ViewPager mViewPager;
-
+    private RadioGroup mRadioGroup;
     private ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
     @Override
@@ -28,22 +28,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.vp_content);
-        findViewById(R.id.tv_album).setOnClickListener(this);
-        findViewById(R.id.tv_songlist).setOnClickListener(this);
-        findViewById(R.id.tv_mv).setOnClickListener(this);
-        findViewById(R.id.tv_mine).setOnClickListener(this);
+        mRadioGroup = (RadioGroup) findViewById(R.id.rg_home_button);
+        mRadioGroup.setOnCheckedChangeListener(this);
         mFragments.add(new TodayFragment());
         mFragments.add(new CategoryFragment());
         mFragments.add(new AlbumFragment());
         mFragments.add(new GirlFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));
         mViewPager.setOffscreenPageLimit(4);
+        mRadioGroup.check(R.id.tv_album);
     }
 
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
             case R.id.tv_album:
                 mViewPager.setCurrentItem(0);
                 break;

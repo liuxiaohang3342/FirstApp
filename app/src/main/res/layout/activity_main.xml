@@ -40,42 +40,48 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/skin_splite_color"/>
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/rg_home_button"
         android:layout_width="match_parent"
-        android:layout_height="47dp">
+        android:layout_height="47dp"
+        android:orientation="horizontal">
 
-        <TextView
+        <RadioButton
             android:id="@+id/tv_album"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:button="@null"
             android:gravity="center"
             android:text="今日更新"
-            android:textColor="@color/colorTheme"/>
-        <TextView
+            android:textColor="@drawable/home_button_bg"/>
+        <RadioButton
             android:id="@+id/tv_songlist"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:button="@null"
             android:text="分类"
-            android:textColor="@color/colorTheme"/>
-        <TextView
+            android:textColor="@drawable/home_button_bg"/>
+        <RadioButton
             android:id="@+id/tv_mv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:button="@null"
             android:text="搜索"
-            android:textColor="@color/colorTheme"/>
-        <TextView
+            android:textColor="@drawable/home_button_bg"/>
+        <RadioButton
             android:id="@+id/tv_mine"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:button="@null"
             android:text="福利"
-            android:textColor="@color/colorTheme"/>
-    </LinearLayout>
+            android:textColor="@drawable/home_button_bg"/>
+    </RadioGroup>
 
 </LinearLayout>

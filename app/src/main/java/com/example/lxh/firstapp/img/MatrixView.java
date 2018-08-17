@@ -30,17 +30,34 @@ public class MatrixView extends ImageView {
 
     private int mMode = 0;
 
+    /**
+     * 多点触控两点之间的距离
+     */
     private float mStartDis;
     private GestureDetector mGestureDetector;
 
+    /**
+     * 变换的矩阵
+     */
     private Matrix mMatrix = new Matrix();
+    /**
+     * 记录初始化值
+     */
     private Matrix mInitMatrix = new Matrix();
 
     private PointF mPointF = new PointF();
+    /**
+     * 缩放的坐标
+     */
     private PointF mScalePoint = new PointF();
 
+    /**
+     * 计算边界
+     */
     private float mImageWidth;
     private float mImageHeight;
+
+    private boolean mDraging = false;
 
     public MatrixView(Context context) {
         this(context, null, -1);
@@ -79,6 +96,11 @@ public class MatrixView extends ImageView {
         mImageHeight = (getHeight() - values[Matrix.MTRANS_Y] * 2) / values[Matrix.MSCALE_Y];
     }
 
+    /**
+     * 拖动
+     *
+     * @param event
+     */
     private void setDragMatrix(MotionEvent event) {
         float dx = event.getX() - mPointF.x;
         float dy = event.getY() - mPointF.y;
@@ -95,24 +117,59 @@ public class MatrixView extends ImageView {
             }
             mMatrix.postTranslate(dx, dy);
             setImageMatrix(mMatrix);
+            mDraging = true;
         }
     }
 
-    private boolean outOfBounds() {
+    /**
+     * 计算x超出边界距离
+     *
+     * @return
+     */
+    private float xOutOfBounds() {
         float[] values = new float[9];
         mMatrix.getValues(values);
-        if (values[Matrix.MTRANS_X] > 0 || mImageWidth * values[Matrix.MSCALE_X] + values[Matrix.MTRANS_X] <= getWidth()) {
-            return true;
+        float dx = 0;
+        if (values[Matrix.MTRANS_X] > 0) {
+            dx = -values[Matrix.MTRANS_X];
+        } else if (mImageWidth * values[Matrix.MSCALE_X] + values[Matrix.MTRANS_X] <= getWidth()) {
+            dx = getWidth() - (mImageWidth * values[Matrix.MSCALE_X] + values[Matrix.MTRANS_X]);
         }
-        float translateY = values[Matrix.MTRANS_Y];
-        mInitMatrix.getValues(values);
-        if (translateY > values[Matrix.MTRANS_Y] || mImageHeight * values[Matrix.MSCALE_Y] + values[Matrix.MTRANS_Y] + translateY <= getHeight()) {
-            return true;
+        return dx;
+
+    }
+
+    /**
+     * 计算y超出边界距离
+     *
+     * @return
+     */
+    private float yOutOfBounds() {
+        float[] values = new float[9];
+        mMatrix.getValues(values);
+        float dy = 0;
+        if (mImageHeight * values[Matrix.MSCALE_Y] > getHeight()) {
+            if (values[Matrix.MTRANS_Y] > 0) {
+                dy = -values[Matrix.MTRANS_Y];
+            } else if (mImageHeight * values[Matrix.MSCALE_Y] + values[Matrix.MTRANS_Y] <= getHeight()) {
+                dy = getHeight() - (mImageHeight * values[Matrix.MSCALE_Y] + values[Matrix.MTRANS_Y]);
+            }
+        } else {
+            if (values[Matrix.MTRANS_Y] < 0) {
+                dy = -values[Matrix.MTRANS_Y];
+            } else if (mImageHeight * values[Matrix.MSCALE_Y] + values[Matrix.MTRANS_Y] > getHeight()) {
+                dy = getHeight() - (mImageHeight * values[Matrix.MSCALE_Y] + values[Matrix.MTRANS_Y]);
+            }
         }
-        return false;
+        return dy;
     }
 
 
+    /**
+     * 是否缩放了
+     *
+     * @return
+     */
     private boolean isZoomChanged() {
         float[] values = new float[9];
         getImageMatrix().getValues(values);
@@ -121,12 +178,23 @@ public class MatrixView extends ImageView {
         return scale != values[Matrix.MSCALE_X];
     }
 
+    /**
+     * 计算两个点之间距离
+     *
+     * @param event
+     * @return
+     */
     private float distance(MotionEvent event) {
         float dx = event.getX(1) - event.getX(0);
         float dy = event.getY(1) - event.getY(0);
         return (float) Math.sqrt(dx * dx + dy * dy);
     }
 
+    /**
+     * 缩放
+     *
+     * @param event
+     */
     private void setZoomMatrix(MotionEvent event) {
         if (event.getPointerCount() < 2) {
             return;
@@ -141,12 +209,16 @@ public class MatrixView extends ImageView {
             checkScalePoint(event);
             mMatrix.postScale(scale, scale, mScalePoint.x, mScalePoint.y);
             mStartDis = enDis;
-            mMatrix.getValues(values);
-            setBackgroundColor(Color.argb(getAlpha(values[Matrix.MSCALE_X]), 0, 0, 0));
             setImageMatrix(mMatrix);
         }
     }
 
+    /**
+     * 计算透明度
+     *
+     * @param scale
+     * @return
+     */
     private int getAlpha(float scale) {
         int alpha = (int) (scale * 255);
         if (alpha < 0) {
@@ -157,12 +229,24 @@ public class MatrixView extends ImageView {
         return alpha;
     }
 
+    /**
+     * 计算缩放的坐标
+     *
+     * @param event
+     */
     private void checkScalePoint(MotionEvent event) {
         float px = (mScalePoint.x + event.getX()) / 2;
         float py = (mScalePoint.y + event.getY()) / 2;
         mScalePoint.set(px, py);
     }
 
+    /**
+     * 不能超过最大所放值
+     *
+     * @param scale
+     * @param valus
+     * @return
+     */
     private float checkMaxScale(float scale, float[] valus) {
         if (scale * valus[Matrix.MSCALE_X] > mMaxScale) {
             scale = mMaxScale / valus[Matrix.MSCALE_X];
@@ -170,41 +254,25 @@ public class MatrixView extends ImageView {
         return scale;
     }
 
+    /**
+     * 重置矩阵
+     */
     private void resetMatrix() {
         if (isMinScale()) {
             mMatrix.set(mInitMatrix);
             setBackgroundColor(Color.BLACK);
             setImageMatrix(mMatrix);
-        } else if (outOfBounds()) {
-            resetInsideBounds();
         }
+        resetInsideBounds();
     }
 
+
+    /**
+     * 超出边界的处理
+     */
     private void resetInsideBounds() {
-        float[] values = new float[9];
-        mMatrix.getValues(values);
-        float dx = 0;
-        if (values[Matrix.MTRANS_X] > 0) {
-            dx = -values[Matrix.MTRANS_X];
-        } else if (mImageWidth * values[Matrix.MSCALE_X] + values[Matrix.MTRANS_X] <= getWidth()) {
-            dx = getWidth() - (mImageWidth * values[Matrix.MSCALE_X] + values[Matrix.MTRANS_X]);
-        }
-        float dy = 0;
-        if (isZoomChanged()) {
-            if (values[Matrix.MTRANS_Y] > 0) {
-                dy = -values[Matrix.MTRANS_Y];
-            } else if (mImageHeight * values[Matrix.MSCALE_Y] + values[Matrix.MTRANS_Y] <= getHeight()) {
-                dy = getHeight() - (mImageHeight * values[Matrix.MSCALE_Y] + values[Matrix.MTRANS_Y]);
-            }
-        } else {
-            float transY = values[Matrix.MTRANS_Y];
-            mInitMatrix.getValues(values);
-            if (transY > values[Matrix.MTRANS_Y]) {
-                dy = values[Matrix.MTRANS_Y] - transY;
-            } else if (mImageHeight + values[Matrix.MTRANS_Y] + transY <= getHeight()) {
-                dy = getHeight() - (mImageHeight + values[Matrix.MTRANS_Y] + transY);
-            }
-        }
+        float dx = xOutOfBounds();
+        float dy = yOutOfBounds();
         if (dx == 0 && dy == 0) {
             return;
         }
@@ -212,6 +280,11 @@ public class MatrixView extends ImageView {
         setImageMatrix(mMatrix);
     }
 
+    /**
+     * 是否缩小状态
+     *
+     * @return
+     */
     private boolean isMinScale() {
         float[] values = new float[9];
         getImageMatrix().getValues(values);
@@ -228,6 +301,9 @@ public class MatrixView extends ImageView {
         }
     }
 
+    /**
+     * @param e
+     */
     public void onDoubleClick(MotionEvent e) {
         float scale = isZoomChanged() ? 1 : mDoubleScale;
         mMatrix.set(mInitMatrix);
@@ -236,6 +312,9 @@ public class MatrixView extends ImageView {
     }
 
 
+    /**
+     * 双击不调用ACTION_UP，ACTION_CANCEL
+     */
     class TouchListener implements OnTouchListener {
 
         @Override
@@ -259,18 +338,20 @@ public class MatrixView extends ImageView {
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
                     resetMatrix();
-                    outOfBounds();
+                    mDraging = false;
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    if (mMode == NONE) {
-                        return true;
-                    }
-                    if (isMinScale()) {
+                    if (mMode == NONE || mDraging) {
                         return true;
                     }
                     mMode = ZOOM;
                     mScalePoint.set(event.getX(), event.getY());
                     mStartDis = distance(event);
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    if (event.getPointerCount() > 1) {
+                        mPointF.set(event.getX(1), event.getY(1));
+                    }
                     break;
             }
             return mGestureDetector.onTouchEvent(event);

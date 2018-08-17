@@ -15,11 +15,12 @@ public abstract class BaseMVPActivity<T extends BasePresenter<U>, U extends IVie
     private T mPresenter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mPresenter = createPresenter();
         mPresenter.onCreate();
     }
+
 
     protected abstract T createPresenter();
 
@@ -30,6 +31,6 @@ public abstract class BaseMVPActivity<T extends BasePresenter<U>, U extends IVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onCreate();
+        mPresenter.onDestory();
     }
 }

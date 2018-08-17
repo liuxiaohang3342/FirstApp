@@ -164,10 +164,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        requestData();
+        switch (v.getId()) {
+            case R.id.ll_error:
+                onErrorViewClick();
+                break;
+        }
     }
 
-    public void requestData() {
+    public void onErrorViewClick() {
     }
 
 }

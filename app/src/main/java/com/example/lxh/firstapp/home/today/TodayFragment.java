@@ -2,9 +2,11 @@ package com.example.lxh.firstapp.home.today;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
 import com.example.lxh.firstapp.bean.SourceInfo;
+import com.example.lxh.firstapp.category.CategoryActivity;
 import com.example.lxh.firstapp.web.WebActivity;
 
 import java.util.List;
@@ -21,10 +24,12 @@ import java.util.List;
  */
 
 public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener {
+
+    private static final String GANK_HOME_URL = "https://gank.io/xiandu";
+
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private TodayAdapter mTodayAdapter;
-
 
     @Override
     protected TodayPresenter createPresenter() {
@@ -59,8 +64,19 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
         }, mRecyclerView);
         mTodayAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mTodayAdapter);
+        addHeaderView();
         showLoadingView();
         getPresenter().requestToday();
+    }
+
+    private void addHeaderView() {
+        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.recommend_header_layout, null);
+        ViewPager viewPager = (ViewPager) headerView.findViewById(R.id.vp_banner);
+        viewPager.setAdapter(new BannerAdapter(getActivity()));
+        headerView.findViewById(R.id.tv_gank).setOnClickListener(this);
+        headerView.findViewById(R.id.tv_category).setOnClickListener(this);
+        headerView.findViewById(R.id.tv_joker).setOnClickListener(this);
+        mTodayAdapter.addHeaderView(headerView);
     }
 
     @Override
@@ -82,6 +98,21 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     }
 
     @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.tv_gank:
+                jumpToWeb(GANK_HOME_URL);
+                break;
+            case R.id.tv_category:
+                jumpToCategory();
+                break;
+            case R.id.tv_joker:
+                break;
+        }
+    }
+
+    @Override
     public void onError() {
         mTodayAdapter.loadMoreFail();
         if (mTodayAdapter.getData() == null || mTodayAdapter.getData().size() == 0) {
@@ -94,9 +125,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         SourceInfo info = mTodayAdapter.getItem(position);
-        Intent intent = new Intent(getContext(), WebActivity.class);
-        intent.putExtra(Constant.KEY_URL, info.getUrl());
-        startActivity(intent);
+        jumpToWeb(info.getUrl());
     }
 
     @Override
@@ -105,4 +134,16 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
         showLoadingView();
         getPresenter().requestToday();
     }
+
+    private void jumpToWeb(String url) {
+        Intent intent = new Intent(getContext(), WebActivity.class);
+        intent.putExtra(Constant.KEY_URL, url);
+        startActivity(intent);
+    }
+
+    private void jumpToCategory() {
+        Intent intent = new Intent(getContext(), CategoryActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -23,6 +23,10 @@
 
         <activity android:name="com.example.lxh.firstapp.img.ImageActivity"
                   android:theme="@style/TranslucentFullScreenTheme"/>
+
+        <activity android:name="com.example.lxh.firstapp.category.CategoryActivity"/>
+
+
     </application>
 
 </manifest>

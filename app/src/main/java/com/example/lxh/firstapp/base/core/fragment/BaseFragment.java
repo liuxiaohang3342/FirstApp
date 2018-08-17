@@ -132,7 +132,11 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        onErrorViewClick();
+        switch (v.getId()) {
+            case R.id.ll_error:
+                onErrorViewClick();
+                break;
+        }
     }
 
     public void onErrorViewClick() {

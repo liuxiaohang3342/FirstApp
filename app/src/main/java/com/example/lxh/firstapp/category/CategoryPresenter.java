@@ -19,14 +19,13 @@ public class CategoryPresenter extends BasePresenter<ICategoryView> implements I
 
     @Override
     public void onCreate() {
-        mCategoryModel.requestCategories(this);
     }
 
     @Override
     public void onDestory() {
     }
 
-    public void requestData(){
+    public void requestData() {
         mCategoryModel.requestCategories(this);
     }
 

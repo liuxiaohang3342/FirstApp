@@ -353,7 +353,7 @@ public class MatrixView extends ImageView {
                 case MotionEvent.ACTION_CANCEL:
                     mVelocityTracker.computeCurrentVelocity(100);
                     float dy = mVelocityTracker.getYVelocity();
-                    if (Math.abs(dy) > 50 && mListener != null) {
+                    if (Math.abs(dy) > 50 && mListener != null && isMinScale()) {
                         mListener.onFling();
                     } else {
                         resetMatrix();

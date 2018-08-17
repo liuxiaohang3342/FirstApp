@@ -17,7 +17,7 @@ import com.example.lxh.firstapp.home.today.TodayFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
     private RadioGroup mRadioGroup;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragments.add(new GirlFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));
         mViewPager.setOffscreenPageLimit(4);
+        mViewPager.addOnPageChangeListener(this);
         mRadioGroup.check(R.id.tv_album);
     }
 
@@ -57,6 +58,20 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 break;
 
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        int id = mRadioGroup.getChildAt(position).getId();
+        mRadioGroup.check(id);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
     }
 
     private class HomeAdapter extends FragmentPagerAdapter {

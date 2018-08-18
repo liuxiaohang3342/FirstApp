@@ -2,10 +2,11 @@ package com.example.lxh.firstapp.home.today;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -23,13 +24,14 @@ import java.util.List;
  * Created by lxh on 2018/8/8.
  */
 
-public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener {
+public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener, AppBarLayout.OnOffsetChangedListener {
 
     private static final String GANK_HOME_URL = "https://gank.io/xiandu";
 
-    private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private TodayAdapter mTodayAdapter;
+    private AppBarLayout mAppBarLayout;
+    private View mHeaderView;
 
     @Override
     protected TodayPresenter createPresenter() {
@@ -38,21 +40,15 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
 
     @Override
     protected int getLayoutId() {
-        return R.layout.home_album_layout;
+        return R.layout.home_today_layout;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_album_list);
-        mRefreshLayout.setEnabled(true);
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getPresenter().requestToday();
-            }
-        });
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_recycle_album_list);
+        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
+        mAppBarLayout.addOnOffsetChangedListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTodayAdapter = new TodayAdapter(R.layout.today_text_layout, null);
         mTodayAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
@@ -64,25 +60,26 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
         }, mRecyclerView);
         mTodayAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mTodayAdapter);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.vp_banner);
+        viewPager.setAdapter(new BannerAdapter(getActivity()));
         addHeaderView();
         showLoadingView();
         getPresenter().requestToday();
     }
 
     private void addHeaderView() {
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.recommend_header_layout, null);
-        ViewPager viewPager = (ViewPager) headerView.findViewById(R.id.vp_banner);
-        viewPager.setAdapter(new BannerAdapter(getActivity()));
-        headerView.findViewById(R.id.tv_gank).setOnClickListener(this);
-        headerView.findViewById(R.id.tv_category).setOnClickListener(this);
-        headerView.findViewById(R.id.tv_joker).setOnClickListener(this);
-        mTodayAdapter.addHeaderView(headerView);
+        mHeaderView = LayoutInflater.from(getContext()).inflate(R.layout.recommend_header_layout, mRecyclerView, false);
+//        ViewPager viewPager = (ViewPager) headerView.findViewById(R.id.vp_banner);
+//        viewPager.setAdapter(new BannerAdapter(getActivity()));
+        mHeaderView.findViewById(R.id.tv_gank).setOnClickListener(this);
+        mHeaderView.findViewById(R.id.tv_category).setOnClickListener(this);
+        mHeaderView.findViewById(R.id.tv_joker).setOnClickListener(this);
+        mTodayAdapter.addHeaderView(mHeaderView);
     }
 
     @Override
     public void onRequestSuccess(List<SourceInfo> itemList) {
         showContentView();
-        mRefreshLayout.setRefreshing(false);
         mTodayAdapter.setNewData(itemList);
     }
 
@@ -146,4 +143,13 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
         startActivity(intent);
     }
 
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (Math.abs(verticalOffset) < 40) {
+            mHeaderView.setTranslationY(-40 - verticalOffset);
+        } else {
+            mHeaderView.setTranslationY(0);
+        }
+    }
 }
+

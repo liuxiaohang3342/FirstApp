@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <com.example.lxh.firstapp.banner.AutoScrollViewPager
+        android:id="@+id/asvp_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <com.example.lxh.firstapp.banner.BannerIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        auto:space="@dimen/indicator_space"/>
+</FrameLayout>

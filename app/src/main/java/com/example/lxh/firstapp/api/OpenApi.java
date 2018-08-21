@@ -1,5 +1,9 @@
 package com.example.lxh.firstapp.api;
 
+import io.reactivex.Observable;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
 /**
  * Created by lxh on 2018/8/17.
  */
@@ -21,5 +25,13 @@ public interface OpenApi {
 //    美图
 //    https://www.apiopen.top/meituApi?page=1
 
+    @GET("novelApi")
+    Observable recommendBook();
+
+    @GET("novelSearchApi")
+    Observable serachBook(@Query("name") String name);
+
+    @GET("novelInfoApi")
+    Observable bookDetail(@Query("name") String name);
 
 }

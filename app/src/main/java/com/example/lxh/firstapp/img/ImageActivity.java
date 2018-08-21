@@ -38,6 +38,7 @@ public class ImageActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.vp_image);
         mViewPager.setAdapter(new ImageAdapter());
         mViewPager.setCurrentItem(mPosition);
+        mViewPager.setOffscreenPageLimit(3);
     }
 
     private MatrixView.OnFlingListener mTouchListener = new MatrixView.OnFlingListener() {

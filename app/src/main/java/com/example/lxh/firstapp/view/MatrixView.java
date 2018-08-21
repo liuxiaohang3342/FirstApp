@@ -340,12 +340,20 @@ public class MatrixView extends ImageView {
                     isMatrixEnable();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (isZoomChanged()) {
-                        getParent().requestDisallowInterceptTouchEvent(true);
+                    if (!mDraging && !isZoomChanged() && mMode == DRAG) {
+                        if (Math.abs(event.getX() - mPointF.x) > Math.abs(event.getY() - mPointF.y)) {
+                            return false;
+                        }
+                        if (event.getY() - mPointF.y < 0) {
+                            return false;
+                        }
                     }
                     if (mMode == ZOOM) {
                         setZoomMatrix(event);
                     } else if (mMode == DRAG) {
+                        if (isZoomChanged()) {//防止放大的状态切换页面
+                            getParent().requestDisallowInterceptTouchEvent(true);
+                        }
                         setDragMatrix(event);
                     }
                     break;
@@ -353,7 +361,7 @@ public class MatrixView extends ImageView {
                 case MotionEvent.ACTION_CANCEL:
                     mVelocityTracker.computeCurrentVelocity(100);
                     float dy = mVelocityTracker.getYVelocity();
-                    if (Math.abs(dy) > 50 && mListener != null && isMinScale()) {
+                    if (Math.abs(dy) > 100 && mListener != null && isMinScale() && mDraging) {
                         mListener.onFling();
                     } else {
                         resetMatrix();

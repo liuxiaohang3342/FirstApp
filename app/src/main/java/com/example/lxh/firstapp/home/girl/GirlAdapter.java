@@ -4,7 +4,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.lxh.firstapp.R;
@@ -29,6 +28,6 @@ public class GirlAdapter extends BaseQuickAdapter<GirlInfo, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, GirlInfo item) {
-        ImageLoader.getInstance().load(mContext, (ImageView) helper.getView(R.id.iv_girl), item.getUrl(), mImageConfig);
+        ImageLoader.getInstance().load((ImageView) helper.getView(R.id.iv_girl), item.getUrl(), mImageConfig);
     }
 }

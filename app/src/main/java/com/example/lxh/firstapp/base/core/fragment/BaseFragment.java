@@ -11,6 +11,7 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.Toolbar;
 
@@ -35,6 +36,18 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     public BaseFragment(Bundle bundle) {
         mBundle = bundle;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Glide.with(getActivity()).resumeRequests();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Glide.with(getActivity()).pauseRequests();
     }
 
     @Nullable

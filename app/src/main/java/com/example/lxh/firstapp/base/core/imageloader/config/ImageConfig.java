@@ -9,12 +9,13 @@ public class ImageConfig {
     public int mFailureDrawable;
 
     public ImageConfig(Builder builder) {
-
+        mLoadingRes = builder.mLoadingRes;
+        mFailureDrawable = builder.mFailureDrawable;
     }
 
     public static final class Builder {
-        private int mLoadingRes;
-        private int mFailureDrawable;
+        public int mLoadingRes;
+        public int mFailureDrawable;
 
         public Builder setLoadingRes(int loadingRes) {
             mLoadingRes = loadingRes;

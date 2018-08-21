@@ -54,7 +54,7 @@ public class GirlFragment extends BaseMVPFragment<GirlPresenter, IGrilView> impl
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_recycle_album_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mGirlAdapter = new GirlAdapter(R.layout.girl_item_layout, null);
-        mGirlAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
+        mGirlAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mGirlAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {

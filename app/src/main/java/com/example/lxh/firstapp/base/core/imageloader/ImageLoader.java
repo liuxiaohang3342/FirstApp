@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
-import com.example.lxh.firstapp.base.core.imageloader.transformation.ScaleTransformation;
 import com.example.lxh.firstapp.base.core.imageloader.transformation.TransformationFactory;
 
 /**
@@ -44,10 +43,10 @@ public class ImageLoader {
     }
 
 
-    public void load(Context context, ImageView view, String url, ImageConfig config) {
-        Glide.with(context)
+    public void load(ImageView view, String url, ImageConfig config) {
+        Glide.with(view.getContext())
                 .load(url)
-                .crossFade(600)
+                .crossFade(500)
                 .placeholder(config.mLoadingRes)
                 .error(config.mFailureDrawable)
                 .into(view);

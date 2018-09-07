@@ -1,6 +1,7 @@
 package com.example.lxh.firstapp.api;
 
 import com.example.lxh.firstapp.bean.CategoryInfo;
+import com.example.lxh.firstapp.bean.ContentInfo;
 import com.example.lxh.firstapp.bean.GirlInfo;
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
 import com.example.lxh.firstapp.bean.response.DataResponse;
@@ -35,5 +36,8 @@ interface GankApi {
 
     @GET("xiandu/category/{category}")
     Observable<DataResponse<SubCategoryInfo>> getSubCategories(@Path("category") String category);
+
+    @GET("xiandu/data/id/{id}/count/{count}/page/{page}")
+    Observable<DataResponse<ContentInfo>> getSubCategoriesData(@Path("id") String id, @Path("count") int count, @Path("page") int page);
 
 }

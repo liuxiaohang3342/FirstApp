@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
 import com.example.lxh.firstapp.base.core.imageloader.ImageLoader;
+import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
 import com.example.lxh.firstapp.bean.SourceInfo;
 import com.example.lxh.firstapp.category.CategoryActivity;
 import com.example.lxh.firstapp.common.CommonBannerPresenter;
@@ -38,6 +39,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     private TodayAdapter mTodayAdapter;
     private AppBarLayout mAppBarLayout;
     private View mHeaderView;
+    private ImageConfig mImageConfig;
 
 
     @Override
@@ -67,6 +69,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
         }, mRecyclerView);
         mTodayAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mTodayAdapter);
+        mImageConfig = new ImageConfig.Builder().setLoadingRes(R.drawable.img_four_bi_three).setFailureDrawable(R.drawable.img_four_bi_three).create();
         addHeaderView();
         addBanner(view);
         showLoadingView();
@@ -192,7 +195,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     public Object instantiate(ViewGroup container, int position) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.banner_item_layout, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
-        ImageLoader.getInstance().load(getContext(), imageView, mUrlList.get(position));
+        ImageLoader.getInstance().load(imageView, mUrlList.get(position), mImageConfig);
         container.addView(view);
         return view;
     }

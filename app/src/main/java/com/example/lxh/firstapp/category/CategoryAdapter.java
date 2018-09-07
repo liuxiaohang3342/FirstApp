@@ -12,6 +12,11 @@ import java.util.List;
 
 public class CategoryAdapter extends FragmentPagerAdapter {
 
+    public interface IGetTitle {
+        String getTitle();
+    }
+
+
     private List<Fragment> mFragmentList;
 
     public CategoryAdapter(FragmentManager fm) {
@@ -38,5 +43,14 @@ public class CategoryAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        Fragment fragment = mFragmentList.get(position);
+        if (!(fragment instanceof IGetTitle)) {
+            throw new RuntimeException("Fragment must implements IGetTitle");
+        }
+        return ((IGetTitle) fragment).getTitle();
     }
 }

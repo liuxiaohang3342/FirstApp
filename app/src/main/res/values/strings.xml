@@ -5,4 +5,6 @@
     <string name="loading_tip">正在加载中请稍后</string>
 
     <string name="request_error">请求失败</string>
+
+    <string name="create_time">创建:$s</string>
 </resources>

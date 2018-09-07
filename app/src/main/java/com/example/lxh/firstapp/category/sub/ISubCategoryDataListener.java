@@ -1,5 +1,6 @@
 package com.example.lxh.firstapp.category.sub;
 
+import com.example.lxh.firstapp.bean.ContentInfo;
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
 
 import java.util.List;
@@ -13,4 +14,8 @@ public interface ISubCategoryDataListener {
     void onSubCategoriesSuccess(List<SubCategoryInfo> infoList);
 
     void onSubCategoriesFail();
+
+    void onContentSuccess(List<ContentInfo> infoList);
+
+    void onContentFail();
 }

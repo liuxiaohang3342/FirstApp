@@ -4,6 +4,7 @@ import com.example.lxh.firstapp.base.core.http.RetrofitClient;
 import com.example.lxh.firstapp.base.core.http.exception.ErrorResumeFunction;
 import com.example.lxh.firstapp.base.core.http.exception.ResponseFunction;
 import com.example.lxh.firstapp.bean.CategoryInfo;
+import com.example.lxh.firstapp.bean.ContentInfo;
 import com.example.lxh.firstapp.bean.GirlInfo;
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
 import com.example.lxh.firstapp.bean.response.DataResponse;
@@ -112,6 +113,20 @@ public class HttpMethod {
         packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).getSubCategories(category)).subscribe(new Consumer<DataResponse<SubCategoryInfo>>() {
             @Override
             public void accept(@NonNull DataResponse<SubCategoryInfo> categoryInfoDataResponse) throws Exception {
+                listener.onSuccess(categoryInfoDataResponse);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(@NonNull Throwable throwable) throws Exception {
+                listener.onError(throwable);
+            }
+        });
+    }
+
+    public static void getSubCategoriesData(String id, int count, int page, final IListener<DataResponse<ContentInfo>> listener) {
+        packObservable(RetrofitClient.getInstance(GankApi.GANK_URL).createService(GankApi.class).getSubCategoriesData(id, count, page)).subscribe(new Consumer<DataResponse<ContentInfo>>() {
+            @Override
+            public void accept(@NonNull DataResponse<ContentInfo> categoryInfoDataResponse) throws Exception {
                 listener.onSuccess(categoryInfoDataResponse);
             }
         }, new Consumer<Throwable>() {

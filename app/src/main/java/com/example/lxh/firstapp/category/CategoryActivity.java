@@ -1,6 +1,7 @@
 package com.example.lxh.firstapp.category;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -21,6 +22,7 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
     private ViewPager mViewPager;
     private List<Fragment> mFragmentList;
     private CategoryAdapter mAdapter;
+    private TabLayout mTabLayout;
 
 
     @Override
@@ -37,6 +39,7 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewPager = (ViewPager) findViewById(R.id.vp_category_content);
+        mTabLayout = (TabLayout) findViewById(R.id.tl_category);
         setTitle("分类");
         showLoadingView();
         getPresenter().requestData();
@@ -48,13 +51,16 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
         initFragments(infoList);
         mAdapter = new CategoryAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(mFragmentList.size());
     }
 
     private void initFragments(List<CategoryInfo> infoList) {
         mFragmentList = new ArrayList<>();
         for (CategoryInfo info : infoList) {
-            mFragmentList.add(SubCategoryFragment.newInstance(info));
+            SubCategoryFragment fragment = SubCategoryFragment.newInstance(info);
+            fragment.setName(info.getName());
+            mFragmentList.add(fragment);
         }
     }
 
@@ -64,4 +70,5 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
         showLoadingView();
         getPresenter().requestData();
     }
+
 }

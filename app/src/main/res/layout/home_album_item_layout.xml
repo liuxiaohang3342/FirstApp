@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:skin="http://schemas.android.com/android/skin"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingBottom="15dp"
-    android:paddingTop="5dp"
-    skin:enable="true">
+    android:paddingTop="5dp">
 
     <ImageView
         android:id="@+id/list_img_v3"
@@ -53,11 +51,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
+            android:layout_marginTop="3dp"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:textSize="10dp"
-            android:layout_marginTop="3dp"
             tools:text="数字专辑售卖中"/>
     </LinearLayout>
 

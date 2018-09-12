@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
@@ -65,6 +66,19 @@ public class GirlFragment extends BaseMVPFragment<GirlPresenter, IGrilView> impl
         mRecyclerView.setAdapter(mGirlAdapter);
         showLoadingView();
         getPresenter().requestData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getActivity() == null) {
+            return;
+        }
+        if (isVisibleToUser) {
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
     }
 
     @Override

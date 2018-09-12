@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    skin:enable="true">
+
+    <ImageView
+        android:id="@+id/list_img_v3"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:background="@drawable/img_default_book"/>
+
+
+    <TextView
+        android:id="@+id/list_title_v3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/list_img_v3"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/skin_title_color"
+        android:textSize="18dp"
+        tools:text="爆宠小小妻"/>
+
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_title_v3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/list_img_v3"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/skin_title_less_important_color"
+        android:textSize="14dp"
+        tools:text="燕子回时 | 现代言情 | 连载"/>
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_desc"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/list_img_v3"
+        android:background="@drawable/solid_tag_background"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:textColor="@color/skin_title_less_important_color"
+        android:textSize="12dp"
+        tools:text="医生•农民•透视•暧昧"/>
+
+    <TextView
+        android:id="@+id/tv_content_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tag"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/list_img_v3"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textColor="@color/skin_tip_color"
+        android:textSize="12dp"
+        tools:text="风情万种的杨寡妇用薄毯半掩着赤裸侧躺在床，“小寒，快帮我看看，我那是怎么了？”知性冷艳的苏雨柔抱着半开的文胸可怜兮兮看着他，“我这个还能再长大一点吗？感觉C不太够啊？”端庄典雅的嫦娥穿着半透明内衣在天庭的房间里惬意转悠着"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignBottom="@id/list_img_v3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/list_img_v3"
+        android:background="@color/skin_splite_color"/>
+</RelativeLayout>

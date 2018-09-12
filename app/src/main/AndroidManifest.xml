@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.lxh.firstapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
@@ -29,7 +29,11 @@
         <activity android:name="com.example.lxh.firstapp.img.ImageActivity"
                   android:theme="@style/TranslucentFullScreenTheme"/>
 
-        <activity android:name="com.example.lxh.firstapp.category.CategoryActivity"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        <activity android:name="com.example.lxh.firstapp.category.CategoryActivity"/>
+        <activity android:name="com.example.lxh.firstapp.bookdetail.BookDetailActivity"/>
+
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data android:name="com.google.android.gms.version"
                    android:value="@integer/google_play_services_version"/>

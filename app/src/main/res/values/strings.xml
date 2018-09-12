@@ -6,5 +6,9 @@
 
     <string name="request_error">请求失败</string>
 
-    <string name="create_time">创建:$s</string>
+    <string name="create_time">创建:%s</string>
+
+    <string name="book_desc">作者:%1$s |分类: %2$s</string>
+    <string name="book_detail_author">作者:%s</string>
+    <string name="book_detail_state">状态:%s</string>
 </resources>

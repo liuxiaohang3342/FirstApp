@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@null">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctl_book_detail_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent"
+            app:titleEnabled="false">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7">
+                <ImageView
+                    android:id="@+id/iv_header_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"/>
+                <ImageView
+                    android:id="@+id/iv_book_img"
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="65dp"
+                    android:background="@drawable/img_four_bi_three"
+                    android:transitionName="@string/transition_book_img"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="65dp"
+                    android:layout_toRightOf="@+id/iv_book_img"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="作者:刘晓航"/>
+
+                    <TextView
+                        android:id="@+id/tv_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="状态:连载"/>
+
+                    <TextView
+                        android:id="@+id/tv_tags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="热血|斗气|废柴|小说"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                app:layout_collapseMode="pin"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="简介"
+                android:textColor="@color/skin_title_color"
+                android:textSize="16dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="诸天万界之间，有一处名为罗浮的世界，十万年生，十万年灭，世间万物亿兆生灵，便在这二十万年一次的生灭当中沉沦，周而复始循环不休，直到这一年，一个数万年前就已经死去的少年在藏剑阁当中醒来……"
+                android:textColor="@color/skin_title_less_important_color"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:id="@+id/tv_author_tip"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="作者简介"
+                android:textColor="@color/skin_title_color"
+                android:textSize="16dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_author_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="诸天万界之间，有一处名为罗浮的世界，十万年生，十万年灭，世间万物亿兆生灵，便在这二十万年一次的生灭当中沉沦，周而复始循环不休，直到这一年，一个数万年前就已经死去的少年在藏剑阁当中醒来……"
+                android:textColor="@color/skin_title_less_important_color"
+                android:textSize="14dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_other_book_tip"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="作者其他作品"
+                android:textColor="@color/skin_title_color"
+                android:textSize="16dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rlv_author_other_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_similar_tip"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="看过这本书的人还在看"
+                android:textColor="@color/skin_title_color"
+                android:textSize="16dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rlv_similar_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

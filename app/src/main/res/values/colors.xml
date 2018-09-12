@@ -18,5 +18,7 @@
     <color name="skin_tip_color">#888888</color>
     <color name="skin_disable_color">#cacaca</color>
     <color name="skin_splite_color">#ebebeb</color>
+
     <color name="skin_item_bg">#ffffff</color>
+    <color name="color_f7f7f7">#f7f7f7</color>
 </resources>

@@ -3,10 +3,14 @@ package com.example.lxh.firstapp.base.core.http;
 import android.text.TextUtils;
 
 import com.example.lxh.firstapp.base.core.http.log.LoggerInterceptor;
+import com.example.lxh.firstapp.base.core.http.ssl.SSLHelper;
+import com.example.lxh.firstapp.base.core.http.ssl.UnSafeHostnameVerifier;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -42,6 +46,7 @@ public class RetrofitClient {
         if (TextUtils.isEmpty(url)) {
             return;
         }
+        X509TrustManager trustManager = SSLHelper.getTrustManager();
         OkHttpClient mClient = new OkHttpClient.Builder()
                 .connectTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 //添加请求头
@@ -49,6 +54,8 @@ public class RetrofitClient {
                 //添加日志打印拦截器
                 .addInterceptor(new LoggerInterceptor())
                 .connectTimeout(10, TimeUnit.SECONDS)
+                .sslSocketFactory(SSLHelper.getSSLSocketFactory(trustManager), trustManager)
+                .hostnameVerifier(new UnSafeHostnameVerifier())
                 .build();
         Gson gson = new GsonBuilder().setLenient().create();
         mRetrofit = new Retrofit.Builder()

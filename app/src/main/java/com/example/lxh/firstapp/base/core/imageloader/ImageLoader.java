@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide;
 import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
 import com.example.lxh.firstapp.base.core.imageloader.transformation.TransformationFactory;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 /**
  * Created by lxh on 2018/8/6.
  * <p>
@@ -57,6 +59,21 @@ public class ImageLoader {
                 .load(url)
                 .placeholder(config.mLoadingRes)
                 .error(config.mFailureDrawable)
+                .into(view);
+    }
+
+    /**
+     * 高斯模糊
+     *
+     * @param view
+     * @param url
+     * @param radius
+     * @param sampling
+     */
+    public void load(ImageView view, String url, int radius, int sampling) {
+        Glide.with(view.getContext())
+                .load(url)
+                .bitmapTransform(new BlurTransformation(view.getContext(), radius, sampling))
                 .into(view);
     }
 

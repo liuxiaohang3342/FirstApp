@@ -6,7 +6,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:background="@null">
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/ctl_book_detail_header"
@@ -32,7 +32,7 @@
                     android:layout_width="120dp"
                     android:layout_height="160dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="65dp"
+                    android:layout_marginTop="95dp"
                     android:background="@drawable/img_four_bi_three"
                     android:transitionName="@string/transition_book_img"/>
 
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="160dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="65dp"
+                    android:layout_marginTop="95dp"
                     android:layout_toRightOf="@+id/iv_book_img"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -69,8 +69,7 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
+                style="@style/TitleBar"
                 app:layout_collapseMode="pin"/>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

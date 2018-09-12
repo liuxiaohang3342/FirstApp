@@ -21,6 +21,7 @@ import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
 import com.example.lxh.firstapp.bean.BookInfo;
 import com.example.lxh.firstapp.bean.SimpleBookInfo;
 import com.example.lxh.firstapp.home.book.Constants;
+import com.example.lxh.firstapp.utils.StatusBarUtil;
 import com.example.lxh.firstapp.utils.StringUtil;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class BookDetailActivity extends AppCompatActivity implements IBookDetail
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setStatusBarTransparent(this);
         setContentView(R.layout.book_detail_layout);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setToolBar();

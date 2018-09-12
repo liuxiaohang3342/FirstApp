@@ -8,29 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.lxh.firstapp.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:background="@color/colorTheme">
-
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/titlebar_menu"/>
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="干货"
-            android:textColor="@color/color_white"
-            android:textSize="18dp" />
-
-    </android.support.v7.widget.Toolbar>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_content"
         android:layout_width="match_parent"

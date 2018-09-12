@@ -1,16 +1,20 @@
 package com.example.lxh.firstapp.base.core.activity;
 
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.lxh.firstapp.R;
+import com.example.lxh.firstapp.utils.StatusBarUtil;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -36,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setStatusBarTransparent(this);
         setContentView(R.layout.activity_base);
         initView();
         setToolBar();
@@ -61,6 +66,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected abstract int getLayoutId();
 
     protected void setToolBar() {
+        if (!isNeedToolBar()) {
+            return;
+        }
+        mToolbar.setVisibility(View.VISIBLE);
         setSupportActionBar(mToolbar);
         mActionBar = getSupportActionBar();
         if (mActionBar != null) {
@@ -75,6 +84,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                 onBackPressed();
             }
         });
+    }
+
+    public boolean isNeedToolBar() {
+        return true;
     }
 
     public void setTitle(String title) {

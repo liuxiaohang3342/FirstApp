@@ -9,15 +9,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 
+import com.example.lxh.firstapp.base.core.activity.BaseActivity;
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
 import com.example.lxh.firstapp.home.album.AlbumFragment;
-import com.example.lxh.firstapp.home.girl.GirlFragment;
 import com.example.lxh.firstapp.home.book.BookFragment;
+import com.example.lxh.firstapp.home.girl.GirlFragment;
 import com.example.lxh.firstapp.home.today.TodayFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
     private RadioGroup mRadioGroup;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.vp_content);
         mRadioGroup = (RadioGroup) findViewById(R.id.rg_home_button);
         mRadioGroup.setOnCheckedChangeListener(this);
@@ -40,6 +40,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mRadioGroup.check(R.id.tv_album);
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public boolean isNeedToolBar() {
+        return false;
+    }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

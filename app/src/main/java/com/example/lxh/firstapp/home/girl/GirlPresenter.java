@@ -1,8 +1,8 @@
 package com.example.lxh.firstapp.home.girl;
 
+import com.example.lxh.firstapp.api.IListener;
 import com.example.lxh.firstapp.base.core.mvp.BasePresenter;
 import com.example.lxh.firstapp.bean.GirlInfo;
-import com.example.lxh.firstapp.home.IDataLoadListener;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Created by lxh on 2018/8/9.
  */
 
-public class GirlPresenter extends BasePresenter<IGrilView> implements IDataLoadListener<GirlInfo> {
+public class GirlPresenter extends BasePresenter<IGrilView> implements IListener<List<GirlInfo>> {
 
     private static final int PAGE_NUM = 30;
 
@@ -65,7 +65,7 @@ public class GirlPresenter extends BasePresenter<IGrilView> implements IDataLoad
     }
 
     @Override
-    public void onError() {
+    public void onError(Throwable throwable) {
         if (getView() == null) {
             return;
         }

@@ -3,10 +3,9 @@ package com.example.lxh.firstapp.home.today;
 import com.example.lxh.firstapp.api.HttpMethod;
 import com.example.lxh.firstapp.api.IListener;
 import com.example.lxh.firstapp.bean.SourceInfo;
+import com.example.lxh.firstapp.bean.TodayResults;
 import com.example.lxh.firstapp.bean.response.HistoryResponse;
 import com.example.lxh.firstapp.bean.response.TodayResponse;
-import com.example.lxh.firstapp.bean.TodayResults;
-import com.example.lxh.firstapp.home.IDataLoadListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,10 +17,10 @@ import java.util.List;
  * Created by lxh on 2018/8/8.
  */
 
-public class TodayModel implements ITodayModel<SourceInfo> {
+public class TodayModel implements ITodayModel<List<SourceInfo>> {
 
     @Override
-    public void request(final IDataLoadListener<SourceInfo> loadListener) {
+    public void request(final IListener<List<SourceInfo>> loadListener) {
         HttpMethod.day(new IListener<TodayResponse>() {
             @Override
             public void onSuccess(TodayResponse data) {
@@ -40,13 +39,13 @@ public class TodayModel implements ITodayModel<SourceInfo> {
 
             @Override
             public void onError(Throwable throwable) {
-                loadListener.onError();
+                loadListener.onError(throwable);
             }
         });
     }
 
     @Override
-    public void request(Date date, final IDataLoadListener<SourceInfo> loadListener) {
+    public void request(Date date, final IListener<List<SourceInfo>> loadListener) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
@@ -68,7 +67,7 @@ public class TodayModel implements ITodayModel<SourceInfo> {
 
             @Override
             public void onError(Throwable throwable) {
-                loadListener.onError();
+                loadListener.onError(throwable);
             }
         });
     }

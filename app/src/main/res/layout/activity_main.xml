@@ -12,12 +12,12 @@
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/skin_splite_color" />
+        android:background="@color/skin_splite_color"/>
 
     <RadioGroup
         android:id="@+id/rg_home_button"
@@ -33,7 +33,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="推荐"
-            android:textColor="@drawable/home_button_bg" />
+            android:textColor="@drawable/home_button_bg"/>
 
         <RadioButton
             android:id="@+id/tv_songlist"
@@ -43,7 +43,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="图书"
-            android:textColor="@drawable/home_button_bg" />
+            android:textColor="@drawable/home_button_bg"/>
 
         <RadioButton
             android:id="@+id/tv_mv"
@@ -52,8 +52,8 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="搜索"
-            android:textColor="@drawable/home_button_bg" />
+            android:text="天气"
+            android:textColor="@drawable/home_button_bg"/>
 
         <RadioButton
             android:id="@+id/tv_mine"
@@ -63,7 +63,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="福利"
-            android:textColor="@drawable/home_button_bg" />
+            android:textColor="@drawable/home_button_bg"/>
     </RadioGroup>
 
 </LinearLayout>

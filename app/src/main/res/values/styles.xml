@@ -29,6 +29,7 @@
     <style name="TitleBar">
         <item name="android:layout_height">@dimen/titlebar_height</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/colorTheme</item>
         <item name="android:paddingTop">25dp</item>
     </style>
 

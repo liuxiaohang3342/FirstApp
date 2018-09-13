@@ -1,6 +1,6 @@
 package com.example.lxh.firstapp.home.today;
 
-import com.example.lxh.firstapp.home.IDataLoadListener;
+import com.example.lxh.firstapp.api.IListener;
 
 import java.util.Date;
 
@@ -9,9 +9,9 @@ import java.util.Date;
  */
 
 public interface ITodayModel<T> {
-    void request(IDataLoadListener<T> loadListener);
+    void request(IListener<T> loadListener);
 
-    void request(Date date, IDataLoadListener<T> loadListener);
+    void request(Date date, IListener<T> loadListener);
 
     void dayHistory(IHistoryListener listener);
 

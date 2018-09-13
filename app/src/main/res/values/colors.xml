@@ -21,4 +21,15 @@
 
     <color name="skin_item_bg">#ffffff</color>
     <color name="color_f7f7f7">#f7f7f7</color>
+    <color name="weather_bg">#fff2f2f2</color>
+    <!--
+        51c0f8
+        7f9ee9
+        6d8db1
+        7187db
+        7f8195
+        e99e3c
+        0cb399
+      -->
+
 </resources>

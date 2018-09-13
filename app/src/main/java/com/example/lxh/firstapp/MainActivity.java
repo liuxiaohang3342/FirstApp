@@ -6,12 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 
 import com.example.lxh.firstapp.base.core.activity.BaseActivity;
 import com.example.lxh.firstapp.base.core.fragment.BaseFragment;
-import com.example.lxh.firstapp.home.album.AlbumFragment;
+import com.example.lxh.firstapp.home.weather.WeatherFragment;
 import com.example.lxh.firstapp.home.book.BookFragment;
 import com.example.lxh.firstapp.home.girl.GirlFragment;
 import com.example.lxh.firstapp.home.today.TodayFragment;
@@ -32,7 +31,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         mRadioGroup.setOnCheckedChangeListener(this);
         mFragments.add(new TodayFragment());
         mFragments.add(new BookFragment());
-        mFragments.add(new AlbumFragment());
+        mFragments.add(new WeatherFragment());
         mFragments.add(new GirlFragment());
         mViewPager.setAdapter(new HomeAdapter(getSupportFragmentManager()));
         mViewPager.setOffscreenPageLimit(4);

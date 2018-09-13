@@ -1,6 +1,5 @@
 package com.example.lxh.firstapp.home.book;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,7 +36,7 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
 
     @Override
     protected int getLayoutId() {
-        return R.layout.home_album_layout;
+        return R.layout.home_book_layout;
     }
 
     @Override

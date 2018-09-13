@@ -1,8 +1,8 @@
 package com.example.lxh.firstapp.home.today;
 
+import com.example.lxh.firstapp.api.IListener;
 import com.example.lxh.firstapp.base.core.mvp.BasePresenter;
 import com.example.lxh.firstapp.bean.SourceInfo;
-import com.example.lxh.firstapp.home.IDataLoadListener;
 import com.example.lxh.firstapp.utils.DateUtil;
 
 import java.util.Date;
@@ -12,9 +12,9 @@ import java.util.List;
  * Created by lxh on 2018/8/8.
  */
 
-public class TodayPresenter extends BasePresenter<ITodayView> implements IDataLoadListener<SourceInfo>, IHistoryListener {
+public class TodayPresenter extends BasePresenter<ITodayView> implements IListener<List<SourceInfo>>, IHistoryListener {
 
-    ITodayModel<SourceInfo> mModel = new TodayModel();
+    ITodayModel<List<SourceInfo>> mModel = new TodayModel();
 
     private List<String> mHistory;
     private int mNextPagePosition = -1;
@@ -74,7 +74,7 @@ public class TodayPresenter extends BasePresenter<ITodayView> implements IDataLo
     }
 
     @Override
-    public void onError() {
+    public void onError(Throwable throwable) {
         if (getView() == null) {
             return;
         }

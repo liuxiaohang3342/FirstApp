@@ -13,6 +13,7 @@ import com.example.lxh.firstapp.bean.response.BookResponse;
 import com.example.lxh.firstapp.bean.response.DataResponse;
 import com.example.lxh.firstapp.bean.response.HistoryResponse;
 import com.example.lxh.firstapp.bean.response.TodayResponse;
+import com.example.lxh.firstapp.bean.response.WeatherResponse;
 
 import java.util.List;
 
@@ -175,6 +176,20 @@ public class HttpMethod {
             @Override
             public void accept(@NonNull BookResponse<ExtraBookInfo> categoryInfoDataResponse) throws Exception {
                 listener.onSuccess(categoryInfoDataResponse);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(@NonNull Throwable throwable) throws Exception {
+                listener.onError(throwable);
+            }
+        });
+    }
+
+    public static void getWeatherByCity(String city, final IListener<WeatherResponse> listener) {
+        packObservable(RetrofitClient.getInstance(WeatherApi.WEATHER_API).createService(WeatherApi.class).weatherByCity(city)).subscribe(new Consumer<WeatherResponse>() {
+            @Override
+            public void accept(@NonNull WeatherResponse weatherResponse) throws Exception {
+                listener.onSuccess(weatherResponse);
             }
         }, new Consumer<Throwable>() {
             @Override

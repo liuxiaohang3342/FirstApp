@@ -1,80 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="74dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_first"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_height="350dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/weather_bg_01" />
+
         <TextView
             android:id="@+id/tv_wendu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="60dp"
             android:text="25"
-            android:textColor="@color/colorTheme"
-            android:textSize="50dp"/>
+            android:textColor="@color/color_white"
+            android:textSize="70dp"
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/tv_wendu"
-            android:text="℃"
-            android:textColor="@color/colorTheme"
-            android:textSize="25dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_pm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:minWidth="60dp"
-            android:text="PM:111"
-            android:textColor="@color/colorTheme"/>
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="60dp"
+            android:text="℃"
+            android:textColor="@color/color_white"
+            android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/tv_quality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_pm"
-            android:layout_below="@id/tv_pm"
-            android:layout_marginTop="5dp"
-            android:text="轻度污染"
-            android:textColor="@color/colorTheme"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="北京"
+            android:textColor="@color/color_white"
+            android:textSize="25dp" />
+
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_wind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_first"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="15dp"
-        android:text="南风  3级   湿度  47%  "
-        android:textColor="@color/colorTheme"/>
-
-    <TextView
-        android:id="@+id/tv_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_wind"
-        android:layout_marginTop="15dp"
-        android:paddingLeft="15dp"
-        android:text="阴晴之间，谨防紫外线侵扰"
-        android:textColor="@color/colorTheme"/>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rlv_weather"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
-</RelativeLayout>
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@android:color/black" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_weather"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

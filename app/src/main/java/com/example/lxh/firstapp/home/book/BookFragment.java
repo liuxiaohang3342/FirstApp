@@ -1,6 +1,5 @@
 package com.example.lxh.firstapp.home.book;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
@@ -25,6 +24,8 @@ import java.util.List;
 
 /**
  * Created by lxh on 2018/8/7.
+ * <p>
+ * 只用Recycler没有snap的效果
  */
 
 public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> implements IBookView, BaseQuickAdapter.RequestLoadMoreListener,
@@ -152,8 +153,8 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         float percent = -verticalOffset * 1f / (appBarLayout.getHeight() - mToolbar.getHeight());
-        int color = getResources().getColor(R.color.colorTheme, null);
-        mToolbar.setBackgroundColor(Color.argb((int) (percent * 255), Color.red(color), Color.green(color), Color.blue(color)));
+//        int color = getResources().getColor(R.color.colorTheme, null);
+//        mToolbar.setBackgroundColor(Color.argb((int) (percent * 255), Color.red(color), Color.green(color), Color.blue(color)));
         mSearchView.setScaleX(1 - percent);
         mSearchView.setScaleY(1 - percent);
         if (percent == 1) {

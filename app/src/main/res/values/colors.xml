@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#F3911D</color>
 
-    <color name="colorProgress">#ffffbb33</color>
-
-    <color name="colorTheme">#F3911D</color>
+    <color name="colorTheme">#209cfa</color>
     <color name="translate">#00000000</color>
     <color name="color_white">#ffffff</color>
     <color name="color_black">#000000</color>
@@ -22,14 +17,14 @@
     <color name="skin_item_bg">#ffffff</color>
     <color name="color_f7f7f7">#f7f7f7</color>
     <color name="weather_bg">#fff2f2f2</color>
-    <!--
-        51c0f8
-        7f9ee9
-        6d8db1
-        7187db
-        7f8195
-        e99e3c
-        0cb399
-      -->
+
+    <color name="weather_209cfa">#209cfa</color>
+    <color name="weather_7f9ee9">#7f9ee9</color>
+
+    <color name="weather_6d8db1">#6d8db1</color>
+    <color name="weather_7187db">#7187db</color>
+    <color name="weather_7f8195">#7f8195</color>
+    <color name="weather_e99e3c">#e99e3c</color>
+    <color name="weather_0cb399">#0cb399</color>
 
 </resources>

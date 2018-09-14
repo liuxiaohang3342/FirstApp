@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,15 +10,33 @@
         android:layout_weight="1"
         android:padding="20dp">
 
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="center"
-            android:text="多云25~29"
-            android:textColor="@color/colorTheme"
-            android:textSize="15dp" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_wendu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="25℃~29℃"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_wendu"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="雨虽小，注意保暖别感冒"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/iv_weather"
@@ -26,7 +44,7 @@
             android:layout_height="80dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/bigest_rain" />
+            android:background="@drawable/bigest_rain"/>
 
 
     </RelativeLayout>
@@ -34,7 +52,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/skin_splite_color" />
+        android:background="@color/skin_splite_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,17 +67,23 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/wendu_icon" />
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/circle_stroke_bg"
+                android:gravity="center"
+                android:text="日出"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="10dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_sunrise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="25℃" />
+                android:text="05:52"
+                android:textColor="@color/weather_209cfa"/>
 
         </LinearLayout>
 
@@ -71,17 +95,24 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/wendu_icon" />
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/circle_stroke_bg"
+                android:gravity="center"
+                android:text="日落"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="10dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_sunset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="25℃" />
+                android:text="18:28"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="12dp"/>
 
         </LinearLayout>
 
@@ -93,17 +124,24 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/wendu_icon" />
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/circle_stroke_bg"
+                android:gravity="center"
+                android:text="气压"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="10dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_qiya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="25℃" />
+                android:text="115"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="12dp"/>
 
         </LinearLayout>
 
@@ -114,17 +152,52 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/wendu_icon" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_stroke_bg"
+                android:gravity="center"
+                android:text="风向"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="10dp"/>
 
+
+            <TextView
+                android:id="@+id/tv_fengx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="南风"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="12dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/circle_stroke_bg"
+                android:gravity="center"
+                android:text="风级"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="10dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_fengji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="25℃" />
+                android:text="3级"
+                android:textColor="@color/weather_209cfa"
+                android:textSize="12dp"/>
 
         </LinearLayout>
 

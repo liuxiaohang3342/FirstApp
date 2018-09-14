@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
 import com.example.lxh.firstapp.bean.SourceInfo;
 import com.example.lxh.firstapp.category.CategoryActivity;
 import com.example.lxh.firstapp.common.CommonBannerPresenter;
+import com.example.lxh.firstapp.utils.ViewUtil;
 import com.example.lxh.firstapp.web.WebActivity;
 
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
 
     private RecyclerView mRecyclerView;
     private TodayAdapter mTodayAdapter;
-    private AppBarLayout mAppBarLayout;
+    //    private AppBarLayout mAppBarLayout;
     private View mHeaderView;
     private ImageConfig mImageConfig;
 
@@ -56,8 +58,8 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_recycle_album_list);
-        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
-        mAppBarLayout.addOnOffsetChangedListener(this);
+//        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
+//        mAppBarLayout.addOnOffsetChangedListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTodayAdapter = new TodayAdapter(R.layout.today_text_layout, null);
         mTodayAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
@@ -69,9 +71,20 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
         }, mRecyclerView);
         mTodayAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mTodayAdapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int offset = ViewUtil.getRecyclerViewScrollYDistance(recyclerView);
+                if (Math.abs(offset) < 40) {
+                    mHeaderView.setTranslationY(-40 + offset);
+                } else {
+                    mHeaderView.setTranslationY(0);
+                }
+            }
+        });
         mImageConfig = new ImageConfig.Builder().setLoadingRes(R.drawable.img_four_bi_three).setFailureDrawable(R.drawable.img_four_bi_three).create();
         addHeaderView();
-        addBanner(view);
+        addBanner();
         showLoadingView();
         getPresenter().requestToday();
     }
@@ -96,8 +109,10 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     }
 
 
-    private void addBanner(View view) {
+    private void addBanner() {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.banner_layout, mRecyclerView, false);
         new CommonBannerPresenter<>(getContext(), mUrlList, this).setView(view);
+        mTodayAdapter.addHeaderView(view, 0);
     }
 
 
@@ -192,7 +207,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     }
 
     @Override
-    public Object instantiate(ViewGroup container, int position,String url) {
+    public Object instantiate(ViewGroup container, int position, String url) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.banner_item_layout, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
         ImageLoader.getInstance().load(imageView, mUrlList.get(position), mImageConfig);

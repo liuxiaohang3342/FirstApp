@@ -9,6 +9,7 @@
         android:id="@+id/tool_bar"
         style="@style/TitleBar"
         android:background="@color/colorTheme"
+        android:titleTextColor="@color/color_white"
         android:visibility="gone"/>
 
     <FrameLayout

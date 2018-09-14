@@ -31,7 +31,7 @@ import java.util.List;
  * Created by lxh on 2018/8/8.
  */
 
-public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener, AppBarLayout.OnOffsetChangedListener, CommonBannerPresenter.BannerListener {
+public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener, AppBarLayout.OnOffsetChangedListener, CommonBannerPresenter.BannerListener<String> {
 
     private static final String GANK_HOME_URL = "https://gank.io/xiandu";
 
@@ -192,7 +192,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     }
 
     @Override
-    public Object instantiate(ViewGroup container, int position) {
+    public Object instantiate(ViewGroup container, int position,String url) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.banner_item_layout, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
         ImageLoader.getInstance().load(imageView, mUrlList.get(position), mImageConfig);

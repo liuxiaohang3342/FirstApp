@@ -2,6 +2,7 @@ package com.example.lxh.firstapp.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,7 +13,7 @@ import com.example.lxh.firstapp.R;
  * Created by lxh on 2018/8/20.
  */
 
-public class BannerIndicator extends LinearLayout {
+public class BannerIndicator extends LinearLayout implements ViewPager.OnPageChangeListener {
 
     private IndicatorAdapter mAdapter;
 
@@ -34,6 +35,9 @@ public class BannerIndicator extends LinearLayout {
         setOrientation(HORIZONTAL);
     }
 
+    public void setViewPager(ViewPager viewPager) {
+        viewPager.addOnPageChangeListener(this);
+    }
 
     public void setAdapter(IndicatorAdapter adapter) {
         mAdapter = adapter;
@@ -79,4 +83,16 @@ public class BannerIndicator extends LinearLayout {
         return position % size;
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        setCurrentItem(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+    }
 }

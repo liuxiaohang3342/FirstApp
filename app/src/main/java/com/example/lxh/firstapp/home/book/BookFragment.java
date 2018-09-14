@@ -1,16 +1,22 @@
 package com.example.lxh.firstapp.home.book;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
+import com.example.lxh.firstapp.banner.BannerIndicator;
+import com.example.lxh.firstapp.banner.IndicatorAdapter;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
 import com.example.lxh.firstapp.bean.BookInfo;
 import com.example.lxh.firstapp.bookdetail.BookDetailActivity;
@@ -21,13 +27,19 @@ import java.util.List;
  * Created by lxh on 2018/8/7.
  */
 
-public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> implements IBookView, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> implements IBookView, BaseQuickAdapter.RequestLoadMoreListener,
+        BaseQuickAdapter.OnItemClickListener, AppBarLayout.OnOffsetChangedListener {
 
-    private SwipeRefreshLayout mRefreshLayout;
+    private static final int INDEX = 1000;
     private RecyclerView mRecyclerView;
     private BookAdapter mBookAdapter;
-    private View mHeaderView;
-    private BookHeaderAdapter mBookHeaderAdapter;
+    private ViewPager mViewPager;
+    private BannerIndicator mIndicator;
+    private AppBarLayout mAppBarLayout;
+    private Toolbar mToolbar;
+    private View mSearchView;
+    private View mTitleView;
+
 
     @Override
     protected BookPresenter createPresenter() {
@@ -42,38 +54,40 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_album_list);
+        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.abl_book_list);
+        mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_recycle_album_list);
+        mSearchView = view.findViewById(R.id.tv_search);
+        mTitleView = view.findViewById(R.id.tv_title);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mBookAdapter = new BookAdapter(R.layout.home_book_item_layout, null);
         mBookAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mBookAdapter);
         mBookAdapter.setEnableLoadMore(true);
         mBookAdapter.setOnLoadMoreListener(this, mRecyclerView);
-        addHeaderView();
-        initRefreshLayout();
+        mAppBarLayout.addOnOffsetChangedListener(this);
         showLoadingView();
         getPresenter().requestData();
     }
 
-    private void addHeaderView() {
-        mHeaderView = LayoutInflater.from(getContext()).inflate(R.layout.book_header_layout, mRecyclerView, false);
-        RecyclerView recyclerView = (RecyclerView) mHeaderView.findViewById(R.id.rlv_book_header);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        mBookHeaderAdapter = new BookHeaderAdapter(R.layout.book_header_item_layout, null);
-        mBookHeaderAdapter.setOnItemClickListener(this);
-        recyclerView.setAdapter(mBookHeaderAdapter);
-        mBookAdapter.addHeaderView(mHeaderView);
-    }
+    private void addBanner(final List<BookInfo> arrayList) {
+        mViewPager = (ViewPager) getView().findViewById(R.id.asvp_viewpager);
+        mIndicator = (BannerIndicator) getView().findViewById(R.id.indicator);
+        mViewPager.setAdapter(new BookHeaderAdapter(getContext(), arrayList));
+        mIndicator.setAdapter(new IndicatorAdapter() {
+            @Override
+            public int getCount() {
+                return arrayList.size();
+            }
 
-    private void initRefreshLayout() {
-        //设置下拉出现小圆圈是否是缩放出现，出现的位置，最大的下拉位置
-        mRefreshLayout.setProgressViewOffset(true, 5, 20);
-        //设置下拉圆圈的大小，两个值 LARGE， DEFAULT
-        mRefreshLayout.setSize(SwipeRefreshLayout.LARGE);
-        // 通过 setEnabled(false) 禁用下拉刷新
-        mRefreshLayout.setEnabled(true);
-        mRefreshLayout.setOnRefreshListener(this);
+            @Override
+            public View getView(ViewGroup viewGroup, int position) {
+                return LayoutInflater.from(getContext()).inflate(R.layout.banner_indicator_layout, viewGroup, false);
+            }
+        });
+        mViewPager.setPageTransformer(false, new BannerPageTransformer());
+        mIndicator.setViewPager(mViewPager);
+        mViewPager.setCurrentItem(INDEX);
     }
 
     @Override
@@ -85,7 +99,6 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
 
     @Override
     public void onRequestSuccess(List<BookInfo> itemList) {
-        mRefreshLayout.setRefreshing(false);
         showContentView();
         mBookAdapter.setNewData(itemList);
     }
@@ -99,11 +112,10 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
     @Override
     public void onRecommendSuccess(List<BookInfo> itemList) {
         if (itemList == null || itemList.isEmpty()) {
-            mHeaderView.setVisibility(View.GONE);
+            showEmptyView();
             return;
         }
-        mHeaderView.setVisibility(View.VISIBLE);
-        mBookHeaderAdapter.setNewData(itemList);
+        addBanner(itemList);
     }
 
     @Override
@@ -126,11 +138,6 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
     }
 
     @Override
-    public void onRefresh() {
-        getPresenter().requestData();
-    }
-
-    @Override
     public void onLoadMoreRequested() {
         getPresenter().loadMore();
     }
@@ -141,4 +148,21 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
         ImageView imageView = (ImageView) view.findViewById(R.id.list_img_v3);
         BookDetailActivity.start(getActivity(), imageView, bookInfo);
     }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        float percent = -verticalOffset * 1f / (appBarLayout.getHeight() - mToolbar.getHeight());
+        int color = getResources().getColor(R.color.colorTheme, null);
+        mToolbar.setBackgroundColor(Color.argb((int) (percent * 255), Color.red(color), Color.green(color), Color.blue(color)));
+        mSearchView.setScaleX(1 - percent);
+        mSearchView.setScaleY(1 - percent);
+        if (percent == 1) {
+            mTitleView.setVisibility(View.VISIBLE);
+            mSearchView.setVisibility(View.GONE);
+        } else {
+            mTitleView.setVisibility(View.GONE);
+            mSearchView.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

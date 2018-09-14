@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
 public class AutoScrollViewPager extends ViewPager implements CommonHandler.MessageHandler {
     private static final String TAG = AutoScrollViewPager.class.getSimpleName();
 
-    private static final int INTERVAL_TIME = 3000;
+    private static final int INTERVAL_TIME = 5000;
     private static final int AUTO_SCROLL_CODE = 0;
 
     private boolean mIsStop;

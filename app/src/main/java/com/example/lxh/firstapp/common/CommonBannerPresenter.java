@@ -5,14 +5,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.banner.BannerIndicator;
 import com.example.lxh.firstapp.banner.LoopBannerAdapter;
-import com.example.lxh.firstapp.base.core.imageloader.ImageLoader;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lxh on 2018/8/20.
@@ -20,14 +18,14 @@ import java.util.ArrayList;
 
 public class CommonBannerPresenter<T> implements ViewPager.OnPageChangeListener {
 
-    public interface BannerListener {
+    public interface BannerListener<T> {
         void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
         void onPageSelected(int position);
 
         void onPageScrollStateChanged(int state);
 
-        Object instantiate(ViewGroup container, int position);
+        Object instantiate(ViewGroup container, int position, T item);
 
         View getView(ViewGroup viewGroup, int position);
     }
@@ -36,11 +34,11 @@ public class CommonBannerPresenter<T> implements ViewPager.OnPageChangeListener 
     private BannerIndicator mIndicator;
     private BannerListener mBannerListener;
 
-    private ArrayList<T> mArrayList;
+    private List<T> mArrayList;
 
     private Context mContext;
 
-    public CommonBannerPresenter(Context context, ArrayList<T> arrayList, BannerListener bannerListener) {
+    public CommonBannerPresenter(Context context, List<T> arrayList, BannerListener bannerListener) {
         mContext = context;
         mBannerListener = bannerListener;
         mArrayList = arrayList;
@@ -51,7 +49,9 @@ public class CommonBannerPresenter<T> implements ViewPager.OnPageChangeListener 
         mIndicator = (BannerIndicator) view.findViewById(R.id.indicator);
         mViewPager.setAdapter(new BannerAdapter());
         mIndicator.setAdapter(new IndicatorAdapter());
+        mIndicator.setViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(this);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setCurrentItem(0);
     }
 
@@ -64,7 +64,6 @@ public class CommonBannerPresenter<T> implements ViewPager.OnPageChangeListener 
 
     @Override
     public void onPageSelected(int position) {
-        mIndicator.setCurrentItem(position);
         if (mBannerListener != null) {
             mBannerListener.onPageSelected(position);
         }
@@ -86,7 +85,7 @@ public class CommonBannerPresenter<T> implements ViewPager.OnPageChangeListener 
 
         @Override
         public Object instantiate(ViewGroup container, int position) {
-            return mBannerListener.instantiate(container, position);
+            return mBannerListener.instantiate(container, position, mArrayList.get(position));
         }
 
         @Override

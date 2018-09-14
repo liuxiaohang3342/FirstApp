@@ -1,34 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     android:orientation="vertical"
-    android:visibility="gone">
+    android:visibility="visible"
+    app:layout_collapseMode="parallax">
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom"
+        android:clipChildren="false">
+
+        <com.example.lxh.firstapp.banner.AutoScrollViewPager
+            android:id="@+id/asvp_viewpager"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:clipChildren="false"/>
+
+        <com.example.lxh.firstapp.banner.BannerIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            app:space="@dimen/indicator_space"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="推荐"
-        android:textColor="@color/skin_title_color"
-        android:textSize="20dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rlv_book_header"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="排行"
-        android:textColor="@color/skin_title_color"
-        android:textSize="20dp"/>
+        android:orientation="horizontal">
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="排行"
+            android:textColor="@color/skin_title_color"
+            android:textSize="20dp"/>
+    </LinearLayout>
 
 </LinearLayout>

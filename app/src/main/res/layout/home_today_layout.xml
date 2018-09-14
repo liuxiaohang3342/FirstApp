@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/srl_album_list"
     android:layout_width="match_parent"
@@ -12,62 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent">
+
         <android.support.v7.widget.Toolbar
             style="@style/TitleBar"
-            android:layout_height="124dp"
-            android:minHeight="74dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <LinearLayout
+            android:layout_height="125dp"
+            android:background="@color/colorTheme"
+            android:minHeight="75dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <com.example.lxh.firstapp.view.TodayTitleView
+                android:id="@+id/ttv_today"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/iv_menu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/titlebar_menu"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/iv_menu"
-                        android:text="菜单"/>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="更新啦"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="北京"/>
-
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/search_background"
-                        android:gravity="center"
-                        android:text="更新啦"/>
-                </RelativeLayout>
-            </LinearLayout>
+                android:minHeight="75dp"
+                android:orientation="vertical" />
         </android.support.v7.widget.Toolbar>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -76,6 +35,6 @@
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

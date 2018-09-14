@@ -3,27 +3,20 @@ package com.example.lxh.firstapp.home.today;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
-import com.example.lxh.firstapp.base.core.imageloader.ImageLoader;
-import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
 import com.example.lxh.firstapp.bean.SourceInfo;
 import com.example.lxh.firstapp.category.CategoryActivity;
 import com.example.lxh.firstapp.common.CommonBannerPresenter;
 import com.example.lxh.firstapp.utils.ViewUtil;
+import com.example.lxh.firstapp.view.TodayTitleView;
 import com.example.lxh.firstapp.web.WebActivity;
 
 import java.util.ArrayList;
@@ -33,15 +26,16 @@ import java.util.List;
  * Created by lxh on 2018/8/8.
  */
 
-public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>, BaseQuickAdapter.OnItemClickListener, AppBarLayout.OnOffsetChangedListener, CommonBannerPresenter.BannerListener<String> {
+public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> implements ITodayView<SourceInfo>,
+        BaseQuickAdapter.OnItemClickListener, TodayTitleView.TitleListener {
 
     private static final String GANK_HOME_URL = "https://gank.io/xiandu";
 
     private RecyclerView mRecyclerView;
     private TodayAdapter mTodayAdapter;
-    //    private AppBarLayout mAppBarLayout;
+    private AppBarLayout mAppBarLayout;
     private View mHeaderView;
-    private ImageConfig mImageConfig;
+    private TodayTitleView mTitleView;
 
 
     @Override
@@ -58,8 +52,11 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_recycle_album_list);
-//        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
-//        mAppBarLayout.addOnOffsetChangedListener(this);
+        mTitleView = (TodayTitleView) view.findViewById(R.id.ttv_today);
+        mTitleView.setmListener(this);
+        mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
+        mAppBarLayout.addOnOffsetChangedListener(mTitleView);
+        mAppBarLayout.setExpanded(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTodayAdapter = new TodayAdapter(R.layout.today_text_layout, null);
         mTodayAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
@@ -82,7 +79,6 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
                 }
             }
         });
-        mImageConfig = new ImageConfig.Builder().setLoadingRes(R.drawable.img_four_bi_three).setFailureDrawable(R.drawable.img_four_bi_three).create();
         addHeaderView();
         addBanner();
         showLoadingView();
@@ -111,7 +107,7 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
 
     private void addBanner() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.banner_layout, mRecyclerView, false);
-        new CommonBannerPresenter<>(getContext(), mUrlList, this).setView(view);
+        new CommonBannerPresenter<>(getContext(), mUrlList, new TodayBannerListener(getContext())).setView(view);
         mTodayAdapter.addHeaderView(view, 0);
     }
 
@@ -183,41 +179,26 @@ public class TodayFragment extends BaseMVPFragment<TodayPresenter, ITodayView> i
     }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        if (Math.abs(verticalOffset) < 40) {
-            mHeaderView.setTranslationY(-40 - verticalOffset);
-        } else {
-            mHeaderView.setTranslationY(0);
+    public void onMenuClick() {
+
+    }
+
+    @Override
+    public void onCityClick() {
+
+    }
+
+    @Override
+    public void onSearchClick() {
+
+    }
+
+    @Override
+    public void closeExpanded() {
+        if (mAppBarLayout != null) {
+            Toast.makeText(getContext(), "关闭", Toast.LENGTH_SHORT).show();
+            mAppBarLayout.setExpanded(false, true);
         }
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public Object instantiate(ViewGroup container, int position, String url) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.banner_item_layout, container, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
-        ImageLoader.getInstance().load(imageView, mUrlList.get(position), mImageConfig);
-        container.addView(view);
-        return view;
-    }
-
-    @Override
-    public View getView(ViewGroup viewGroup, int position) {
-        return null;
     }
 }
 

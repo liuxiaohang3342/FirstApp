@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,7 +9,7 @@
     android:orientation="vertical"
     tools:context="com.example.lxh.firstapp.MainActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.example.lxh.firstapp.view.NoScrollViewPager
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,51 +20,13 @@
         android:layout_height="1dp"
         android:background="@color/skin_splite_color"/>
 
-    <RadioGroup
-        android:id="@+id/rg_home_button"
+    <com.example.lxh.firstapp.view.BottomTabLayout
+        android:id="@+id/tl_home_bottom"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/tv_album"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:gravity="center"
-            android:text="推荐"
-            android:textColor="@drawable/home_button_bg"/>
-
-        <RadioButton
-            android:id="@+id/tv_songlist"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:gravity="center"
-            android:text="图书"
-            android:textColor="@drawable/home_button_bg"/>
-
-        <RadioButton
-            android:id="@+id/tv_mv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:gravity="center"
-            android:text="天气"
-            android:textColor="@drawable/home_button_bg"/>
-
-        <RadioButton
-            android:id="@+id/tv_mine"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:gravity="center"
-            android:text="福利"
-            android:textColor="@drawable/home_button_bg"/>
-    </RadioGroup>
+        android:layout_height="50dp"
+        app:icon_size="20dp"
+        app:select_color="@color/colorTheme"
+        app:text_color="@color/skin_title_less_important_color"
+        app:text_size="12dp"/>
 
 </LinearLayout>

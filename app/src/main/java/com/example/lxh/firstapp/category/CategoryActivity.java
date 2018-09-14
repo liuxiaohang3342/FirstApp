@@ -52,6 +52,7 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
         mAdapter = new CategoryAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.addTab(mTabLayout.newTab());
         mViewPager.setOffscreenPageLimit(mFragmentList.size());
     }
 

@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="45dp"
             android:drawablePadding="3dp"
             android:drawableRight="@drawable/icon_more_down"
             android:text="北京"
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/weather_209cfa"
-        app:tabIndicatorHeight="0dp"
+        app:tabIndicatorHeight="1dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/weather_209cfa"
         app:tabTextColor="@color/weather_7f9ee9"/>

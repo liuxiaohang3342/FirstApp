@@ -157,6 +157,7 @@ public class BookFragment extends BaseMVPFragment<BookPresenter, IBookView> impl
 //        mToolbar.setBackgroundColor(Color.argb((int) (percent * 255), Color.red(color), Color.green(color), Color.blue(color)));
         mSearchView.setScaleX(1 - percent);
         mSearchView.setScaleY(1 - percent);
+        mSearchView.setAlpha(1 - percent);
         if (percent == 1) {
             mTitleView.setVisibility(View.VISIBLE);
             mSearchView.setVisibility(View.GONE);

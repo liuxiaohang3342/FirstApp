@@ -12,24 +12,6 @@ import com.example.lxh.firstapp.bean.response.DataResponse;
 
 public class SubCategoryModel implements ISubCategoryModel {
 
-    public void requestSubCategories(String category, final ISubCategoryDataListener listener) {
-        HttpMethod.getSubGategories(category, new IListener<DataResponse<SubCategoryInfo>>() {
-            @Override
-            public void onSuccess(DataResponse<SubCategoryInfo> data) {
-                if (listener != null) {
-                    listener.onSubCategoriesSuccess(data.getResults());
-                }
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                if (listener != null) {
-                    listener.onSubCategoriesFail();
-                }
-            }
-        });
-    }
-
     public void requestSubCategoriesData(String id, int count, int page, final ISubCategoryDataListener listener) {
         HttpMethod.getSubCategoriesData(id, count, page, new IListener<DataResponse<ContentInfo>>() {
             @Override

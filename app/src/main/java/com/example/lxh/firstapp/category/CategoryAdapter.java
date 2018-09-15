@@ -12,24 +12,18 @@ import java.util.List;
 
 public class CategoryAdapter extends FragmentPagerAdapter {
 
-    public interface IGetTitle {
-        String getTitle();
-    }
-
 
     private List<Fragment> mFragmentList;
+    private List<String> mTitles;
 
     public CategoryAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public CategoryAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public CategoryAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titles) {
         super(fm);
         mFragmentList = fragmentList;
-    }
-
-    public void setFragmentList(List<Fragment> fragmentList) {
-        mFragmentList = fragmentList;
+        mTitles = titles;
     }
 
     @Override
@@ -47,10 +41,12 @@ public class CategoryAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Fragment fragment = mFragmentList.get(position);
-        if (!(fragment instanceof IGetTitle)) {
-            throw new RuntimeException("Fragment must implements IGetTitle");
-        }
-        return ((IGetTitle) fragment).getTitle();
+        return mTitles.get(position);
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
 }

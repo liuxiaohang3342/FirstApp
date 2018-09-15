@@ -9,10 +9,8 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.fragment.BaseMVPFragment;
-import com.example.lxh.firstapp.bean.CategoryInfo;
 import com.example.lxh.firstapp.bean.ContentInfo;
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
-import com.example.lxh.firstapp.category.CategoryAdapter;
 
 import java.util.List;
 
@@ -20,26 +18,21 @@ import java.util.List;
  * Created by lxh on 2018/8/13.
  */
 
-public class SubCategoryFragment extends BaseMVPFragment<SubCategoryPresenter, ISubCategoryView> implements ISubCategoryView, CategoryAdapter.IGetTitle {
-    private static final String KEY_NAME = "name", KEY_EN_NAME = "en_name";
+public class SubCategoryFragment extends BaseMVPFragment<SubCategoryPresenter, ISubCategoryView> implements ISubCategoryView {
+    private static final String KEY_SUB_ID = "SUB_ID";
 
-    private String name;
-    private String en_name;
+    private String mId;
 
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private SubCategoryAdapter mCategoryAdapter;
 
-    public static SubCategoryFragment newInstance(CategoryInfo categoryInfo) {
+    public static SubCategoryFragment newInstance(SubCategoryInfo categoryInfo) {
         SubCategoryFragment fragment = new SubCategoryFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_EN_NAME, categoryInfo.getEn_name());
+        bundle.putString(KEY_SUB_ID, categoryInfo.getId());
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -52,7 +45,7 @@ public class SubCategoryFragment extends BaseMVPFragment<SubCategoryPresenter, I
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            en_name = bundle.getString(KEY_EN_NAME);
+            mId = bundle.getString(KEY_SUB_ID);
         }
     }
 
@@ -75,17 +68,12 @@ public class SubCategoryFragment extends BaseMVPFragment<SubCategoryPresenter, I
         mCategoryAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                getPresenter().loadMoreContent();
+                getPresenter().loadMoreContent(mId);
             }
         }, mRecyclerView);
         mRecyclerView.setAdapter(mCategoryAdapter);
         showLoadingView();
-        getPresenter().requestSubCategory(en_name);
-    }
-
-    @Override
-    public void onSubCategorySuccess(List<SubCategoryInfo> infoList) {
-
+        getPresenter().requestContentByCategory(mId);
     }
 
     @Override
@@ -105,11 +93,6 @@ public class SubCategoryFragment extends BaseMVPFragment<SubCategoryPresenter, I
     public void onErrorViewClick() {
         super.onErrorViewClick();
         showLoadingView();
-        getPresenter().requestSubCategory(en_name);
-    }
-
-    @Override
-    public String getTitle() {
-        return name;
+        getPresenter().requestContentByCategory(mId);
     }
 }

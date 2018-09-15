@@ -2,6 +2,7 @@ package com.example.lxh.firstapp.category;
 
 import com.example.lxh.firstapp.base.core.mvp.IView;
 import com.example.lxh.firstapp.bean.CategoryInfo;
+import com.example.lxh.firstapp.bean.SubCategoryInfo;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public interface ICategoryView extends IView {
     void onDataSuccess(List<CategoryInfo> infoList);
 
     void showErrorView();
+
+    void onSubCategoryFail();
+
+    void onSubCategorySuccess(List<SubCategoryInfo> infoList);
+
 }

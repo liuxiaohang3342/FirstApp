@@ -82,12 +82,16 @@ public class SubCategoryFragment extends BaseMVPFragment<SubCategoryPresenter, I
     }
 
     @Override
-    public void onContentSuccess(List<ContentInfo> infoList) {
+    public void onRequestSuccess(List<ContentInfo> infoList) {
         showContentView();
+        mCategoryAdapter.setNewData(infoList);
+    }
+
+    @Override
+    public void onLoadMoreSuccess(List<ContentInfo> infoList) {
         mCategoryAdapter.loadMoreComplete();
         mCategoryAdapter.addData(infoList);
     }
-
 
     @Override
     public void onErrorViewClick() {

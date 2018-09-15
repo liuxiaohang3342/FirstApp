@@ -16,6 +16,8 @@ public interface ISubCategoryView extends IView {
 
     void onNoMore();
 
-    void onContentSuccess(List<ContentInfo> infoList);
+    void onRequestSuccess(List<ContentInfo> infoList);
+
+    void onLoadMoreSuccess(List<ContentInfo> infoList);
 
 }

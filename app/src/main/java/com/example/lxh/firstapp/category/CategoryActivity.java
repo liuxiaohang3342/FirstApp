@@ -3,7 +3,6 @@ package com.example.lxh.firstapp.category;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,11 +12,9 @@ import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.activity.BaseMVPActivity;
 import com.example.lxh.firstapp.bean.CategoryInfo;
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
-import com.example.lxh.firstapp.category.sub.SubCategoryFragment;
 import com.example.lxh.firstapp.utils.DensityUtil;
 import com.example.lxh.firstapp.view.AutoLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +26,6 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
     private int mTenDp;
 
     private ViewPager mViewPager;
-    private List<Fragment> mFragmentList;
     private CategoryAdapter mAdapter;
     private TabLayout mTabLayout;
     private AppBarLayout mAppBarLayout;
@@ -58,9 +54,9 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
         mAppBarLayout.addOnOffsetChangedListener(this);
         mAutoLayout.setListener(this);
         mAutoLayout.addOnLayoutChangeListener(this);
+        mTabLayout.setupWithViewPager(mViewPager);
         setTitle("分类");
         showLoadingView();
-        mFragmentList = new ArrayList<>();
         getPresenter().requestData();
     }
 
@@ -80,32 +76,16 @@ public class CategoryActivity extends BaseMVPActivity<CategoryPresenter, ICatego
 
     @Override
     public void onSubCategorySuccess(List<SubCategoryInfo> infoList) {
-        initFragments(infoList);
         if (mAdapter == null) {
-            mAdapter = new CategoryAdapter(getSupportFragmentManager(), mFragmentList, getTitles(infoList));
+            mAdapter = new CategoryAdapter(getSupportFragmentManager(), infoList);
             mViewPager.setAdapter(mAdapter);
-            mTabLayout.setupWithViewPager(mViewPager);
         } else {
+            mAdapter.setmInfoList(infoList);
             mAdapter.notifyDataSetChanged();
+            mViewPager.setCurrentItem(0);
         }
     }
 
-    private List<String> getTitles(List<SubCategoryInfo> infoList) {
-        List<String> titles = new ArrayList<>();
-        for (SubCategoryInfo info : infoList) {
-            titles.add(info.getTitle());
-        }
-        return titles;
-    }
-
-
-    private void initFragments(List<SubCategoryInfo> infoList) {
-        mFragmentList.clear();
-        for (SubCategoryInfo info : infoList) {
-            SubCategoryFragment fragment = SubCategoryFragment.newInstance(info);
-            mFragmentList.add(fragment);
-        }
-    }
 
     @Override
     public void onBackPressed() {

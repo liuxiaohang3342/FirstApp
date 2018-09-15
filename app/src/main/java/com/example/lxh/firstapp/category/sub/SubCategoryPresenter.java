@@ -52,14 +52,22 @@ public class SubCategoryPresenter extends BasePresenter<ISubCategoryView> implem
         if (getView() == null) {
             return;
         }
-        if (infoList == null || infoList.size() == 0) {
-            getView().showEmptyView();
-            return;
+        if (mPage == 1) {
+            if (infoList == null || infoList.size() == 0) {
+                getView().showEmptyView();
+                return;
+            }
+            getView().onRequestSuccess(infoList);
+        } else {
+            if (infoList == null || infoList.size() == 0) {
+                getView().onNoMore();
+                return;
+            }
+            getView().onLoadMoreSuccess(infoList);
         }
         if (infoList.size() < PAGE_NUM) {
             mHasMore = false;
         }
-        getView().onContentSuccess(infoList);
         mPage++;
     }
 

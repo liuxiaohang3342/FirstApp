@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lxh.firstapp.R;
+import com.example.lxh.firstapp.base.core.activity.BaseActivity;
 import com.example.lxh.firstapp.base.core.imageloader.ImageLoader;
 import com.example.lxh.firstapp.home.girl.Constant;
 import com.example.lxh.firstapp.view.MatrixView;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Created by lxh on 2018/8/13.
  */
 
-public class ImageActivity extends AppCompatActivity {
+public class ImageActivity extends BaseActivity implements ImageLoader.ILoadListener {
 
     private ViewPager mViewPager;
 
@@ -31,7 +31,6 @@ public class ImageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_layout);
         Intent intent = getIntent();
         mPosition = intent.getIntExtra(Constant.KEY_POSITION, 0);
         mUrls = intent.getStringArrayListExtra(Constant.KEY_URL_LIST);
@@ -39,6 +38,16 @@ public class ImageActivity extends AppCompatActivity {
         mViewPager.setAdapter(new ImageAdapter());
         mViewPager.setCurrentItem(mPosition);
         mViewPager.setOffscreenPageLimit(3);
+    }
+
+    @Override
+    public boolean isNeedToolBar() {
+        return false;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_image_layout;
     }
 
     private MatrixView.OnFlingListener mTouchListener = new MatrixView.OnFlingListener() {
@@ -49,6 +58,16 @@ public class ImageActivity extends AppCompatActivity {
             overridePendingTransition(0, R.anim.scale_out);
         }
     };
+
+    @Override
+    public void loadSuccess() {
+        showContentView();
+    }
+
+    @Override
+    public void loadError() {
+        showLoadingView();
+    }
 
     class ImageAdapter extends PagerAdapter {
 
@@ -67,7 +86,7 @@ public class ImageActivity extends AppCompatActivity {
             View view = LayoutInflater.from(ImageActivity.this).inflate(R.layout.image_item_layout, container, false);
             MatrixView imageView = (MatrixView) view.findViewById(R.id.iv_image);
             imageView.setListener(mTouchListener);
-            ImageLoader.getInstance().load(ImageActivity.this, imageView, mUrls.get(position));
+            ImageLoader.getInstance().load(imageView, mUrls.get(position), ImageActivity.this);
             container.addView(view);
             return view;
         }

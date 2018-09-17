@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.lxh.firstapp.R;
 import com.example.lxh.firstapp.base.core.imageloader.ImageLoader;
+import com.example.lxh.firstapp.base.core.imageloader.config.ImageConfig;
 import com.example.lxh.firstapp.bean.ContentInfo;
 import com.example.lxh.firstapp.bean.SiteInfo;
 import com.example.lxh.firstapp.bean.SubCategoryInfo;
@@ -20,16 +21,18 @@ import java.util.List;
  */
 
 public class SubCategoryAdapter extends BaseQuickAdapter<ContentInfo, BaseViewHolder> {
+    ImageConfig mConfig;
 
     public SubCategoryAdapter(@LayoutRes int layoutResId, @Nullable List<ContentInfo> data) {
         super(layoutResId, data);
+        mConfig = new ImageConfig.Builder().setFailureDrawable(R.drawable.img_one_bi_one).setLoadingRes(R.drawable.img_one_bi_one).create();
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ContentInfo item) {
         SiteInfo siteInfo = item.getSite();
         if (siteInfo != null) {
-            ImageLoader.getInstance().load(mContext, (ImageView) helper.getView(R.id.iv_icon), siteInfo.getIcon());
+            ImageLoader.getInstance().load((ImageView) helper.getView(R.id.iv_icon), siteInfo.getIcon(), mConfig);
             helper.setText(R.id.tv_name, siteInfo.getName());
         }
 

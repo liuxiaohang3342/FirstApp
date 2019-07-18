@@ -1,53 +1,113 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "28.0.2"
     defaultConfig {
         applicationId "com.example.lxh.firstapp"
         minSdkVersion 23
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"//Error:All flavors must now belong to a named flavor dimension   版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
     }
+
+    signingConfigs {
+        release {
+            storeFile file("androidLxh.keystore.jks")
+            keyAlias "androidLxh"
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('gradle.properties').newDataInputStream())
+            storePassword = properties.getProperty("KEYSTORE_PASSWORD")
+            keyPassword = properties.getProperty("KEY_PASSWORD")
+
+        }
+    }
+
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true //打开资源压缩
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+            debuggable false
+        }
+    }
+
+    productFlavors {
+//        web {}
+//        baidu {}
+//        c360 {}
+//        qq {}
+//        oppo {}
+//        vivo {}
+//        huawei {}
+//        mi {}
+//        meizu {}
+//        lenovo {}
+//        leshi {}
+//        sogou {}
+        wandoujia {}
+//        samsung {}
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    //自定义APK名称,多渠道打包
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            variant.productFlavors.each { flavor ->
+                def project = "lxh"
+                def separator = "_"
+                def buildType = variant.variantData.variantConfiguration.buildType.name
+                def versionName = variant.versionName
+                def versionCode = variant.versionCode
+                def date = new Date()
+                def formattedDate = date.format('yyyyMMdd')
+
+                def apkName = project + separator + "v" + versionName + separator + versionCode + separator + buildType + separator + flavor.name + ".apk"
+                if (buildType == "release") {
+                    apkName = project + separator + "v" + versionName + separator + versionCode + separator + buildType + separator + flavor.name + separator + formattedDate + ".apk"
+                }
+                output.outputFileName = apkName
+            }
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 
-    compile 'com.android.support:design:25.4.0'
-    compile 'com.android.support:cardview-v7:25.2.0'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
 
 
-    compile 'com.github.bumptech.glide:glide:3.7.0'//图片加载
+    implementation 'com.github.bumptech.glide:glide:3.7.0'//图片加载
 
-    compile "io.reactivex.rxjava2:rxjava:2.1.0" // 必要rxjava2依赖
-    compile "io.reactivex.rxjava2:rxandroid:2.0.1" // 必要rxandrroid依赖，切线程时需要用到
-    compile 'com.squareup.retrofit2:retrofit:2.3.0' // 必要retrofit依赖
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0' // 必要依赖，和Rxjava结合必须用到，下面会提到
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0' // 必要依赖，解析json字符所用
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1' //非必要依赖， log依赖，如果需要打印OkHttpLog需要添加
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    implementation "io.reactivex.rxjava2:rxjava:2.1.0" // 必要rxjava2依赖
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1" // 必要rxandrroid依赖，切线程时需要用到
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0' // 必要retrofit依赖
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0' // 必要依赖，和Rxjava结合必须用到，下面会提到
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0' // 必要依赖，解析json字符所用
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1' //非必要依赖， log依赖，如果需要打印OkHttpLog需要添加
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
-    compile('com.squareup.retrofit2:converter-simplexml:2.1.0') {
+    implementation('com.squareup.retrofit2:converter-simplexml:2.1.0') {
         exclude group: 'xpp3', module: 'xpp3'
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
-    testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
